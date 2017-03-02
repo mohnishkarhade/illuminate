@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 	
-	//getting home page from WEB-INF/views/index.jsp
+	//homeController - getting home page from WEB-INF/views/index.jsp
 	
 	@RequestMapping("/")
 	public String getHome(){
