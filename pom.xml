@@ -8,6 +8,12 @@
 	<name>Illuminate Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
+		<!-- Integrating with backend project -->
+		<dependency>
+			<groupId>com.niit</groupId>
+			<artifactId>IlluminateBE</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
