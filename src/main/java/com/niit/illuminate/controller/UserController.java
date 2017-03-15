@@ -1,47 +1,65 @@
 package com.niit.illuminate.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.niit.illuminatebe.model.Users;
+import com.niit.illuminatebe.service.UsersService;
 
 @Controller
 public class UserController {
-		
+
+	private final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+	@Autowired
+	private Users users;
+
+	@Autowired
+	private UsersService usersService;
 
 	@RequestMapping("/login")
-	public ModelAndView getLogin() {
+	public String getLogin() {
 
-		ModelAndView model = new ModelAndView("login");
-		model.addObject("msg", "User login");
-
-		return model;
+		logger.info("Executing Login page...");
+		return "login";
 
 	}
 
 	@RequestMapping("/register")
-	public String viewRegister() {		
+	public String viewRegister(Model model) {
+		model.addAttribute("users", users);
 		return "register";
 	}
 
-//	@RequestMapping(value = "/register", method = RequestMethod.POST)
-//	public String saveUser(@ModelAttribute("users") Users users, BindingResult result, Model model) {
-//		
-//		if(result.hasErrors()){
-//			return "register";
-//		}
-//		
-//		//List<Users> usersList = usersService.getAllUsers();
-//		
-//		try {
-//			usersService.save(users);
-//			return "login";
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return "register";
-//		}
-//		
-//		
-//	}
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String saveUser(@ModelAttribute("users") Users users, BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			return "register";
+		}
+
+		// List<Users> usersList = usersService.getAllUsers();
+
+		try {
+			boolean flag = usersService.save(users);
+			if (flag) {
+				return "login";
+			} else {
+				return "register";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "register";
+		}
+
+	}
 
 }
