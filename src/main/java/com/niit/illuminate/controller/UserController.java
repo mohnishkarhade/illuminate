@@ -32,8 +32,9 @@ public class UserController {
 
 	}
 
-	@RequestMapping("/register")
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String viewRegister(Model model) {
+		logger.info("Executing Login page...");
 		model.addAttribute("users", users);
 		return "register";
 	}
