@@ -27,7 +27,7 @@ public class UserController {
 	@RequestMapping("/login")
 	public String getLogin() {
 
-		logger.info("Executing Login page...");
+		logger.debug("Executing Login page...");
 		return "login";
 
 	}
@@ -39,11 +39,11 @@ public class UserController {
 		return "register";
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/register/add", method = RequestMethod.POST)
 	public String saveUser(@ModelAttribute("users") Users users, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			return "register";
+			return "error";
 		}
 
 		// List<Users> usersList = usersService.getAllUsers();
@@ -53,12 +53,12 @@ public class UserController {
 			if (flag) {
 				return "login";
 			} else {
-				return "register";
+				return "error";
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "register";
+			return "error";
 		}
 
 	}

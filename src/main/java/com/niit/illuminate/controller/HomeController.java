@@ -13,7 +13,7 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	public String getHome(){
-		logger.info("Executing Login page...");
+		logger.debug("Executing Login page...");
 		return "index";
 	}
 		

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<c:set value="/register" var="formUser"></c:set>
+<c:set value="/register/add" var="formUser"></c:set>
 <div class="space"></div>
 <div class="container">
 	<div class="row">
