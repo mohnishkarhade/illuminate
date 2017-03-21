@@ -15,3 +15,7 @@
 .space{
 	height:50px;
 }
+.error{
+	color: #f00 !important;
+	border-color: #f00 !important;
+}
