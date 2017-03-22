@@ -1,21 +1,34 @@
-
 .form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
 }
+
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }
-.form-signin{
-	min-width:300px;
+
+.form-signin {
+	min-width: 300px;
 }
-.space{
-	height:50px;
+
+.space {
+	height: 50px;
 }
-.error{
-	color: #f00 !important;
+
+.error {
+	color: #f00;
 	border-color: #f00 !important;
+}
+
+label.error {
+	font-size: 12px;
+	padding: 3px;
+	border: solid 1px;
+	margin-top: 3px;
+	border-radius: 4px;
+	background: #f00;
+	color: #fff !important;
 }

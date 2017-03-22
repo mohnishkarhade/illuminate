@@ -1,7 +1,6 @@
 package com.niit.illuminate.controller;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,7 @@ public class UserController {
 			logger.info("Saving user...");
 			for (int i = 0; i < usersList.size(); i++) {
 				if (users.getEmail().equalsIgnoreCase(usersList.get(i).getEmail())) {
-					model.addAttribute("emailError", "This email is already exists");				
+					model.addAttribute("emailError", "This email is already exists");
 					logger.error("Email is already exist");
 					return "register";
 				}

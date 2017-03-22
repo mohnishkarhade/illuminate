@@ -11,6 +11,11 @@
 					<h2 class="text-uppercase">Illuminate</h2>
 					Sign in with Email and Password
 				</div>
+				<c:if test="${not empty success}">
+					<div class="alert alert-success" role="alert">
+						<strong>Success!</strong> ${success }
+					</div>
+				</c:if>
 				<form class="form-signin" action="<spring:url value="/login" />"
 					method="POST">
 
