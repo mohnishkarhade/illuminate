@@ -48,6 +48,7 @@ public class UserController {
 		return "register";
 	}
 
+	//@PostMapping("/register")
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String saveUser(@ModelAttribute("users") Users users, BindingResult result, Model model) {
 
