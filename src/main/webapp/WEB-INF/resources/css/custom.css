@@ -20,15 +20,9 @@
 
 .error {
 	color: #f00;
-	border-color: #f00 !important;
+	border-color: #f03 !important;
 }
 
 label.error {
-	font-size: 12px;
-	padding: 3px;
-	border: solid 1px;
-	margin-top: 3px;
-	border-radius: 4px;
-	background: #f00;
-	color: #fff !important;
+	font-size: 12px;	
 }

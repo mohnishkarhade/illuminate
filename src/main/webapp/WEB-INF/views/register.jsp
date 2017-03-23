@@ -26,6 +26,11 @@
 							<strong>Error!</strong> ${usernameError }
 						</div>
 					</c:if>
+					<c:if test="${not empty mobileError}">
+						<div class="alert alert-danger" role="alert">
+							<strong>Error!</strong> ${mobileError }
+						</div>
+					</c:if>
 					<c:if test="${not empty error}">
 						<div class="alert alert-danger" role="alert">
 							<strong>Error!</strong> ${error }

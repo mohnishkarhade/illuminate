@@ -11,13 +11,15 @@ $(function() {
 			password : {
 				required : true,
 				minlength : 5
-			}
+			},
+			username : "required",
+			mobileno : "required"
 
 		},
 
 		message : {
 			name : "Name is required",
-			email : "Please enter a valid emal address",
+			email : "Please enter a valid email address",
 			password:{
 				required:"Password is required",
 				minlength:"Password must be atleast 5 character long"

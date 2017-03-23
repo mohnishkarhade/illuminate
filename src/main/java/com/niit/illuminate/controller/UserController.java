@@ -22,12 +22,12 @@ public class UserController {
 	private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
-	private Users users;
+	private Users users; //Creating users class instance objects
 
 	@Autowired
-	private UsersService usersService;
+	private UsersService usersService; //Creating usersService interface instance objects
 
-	@RequestMapping("/login")
+	@RequestMapping("/login") //Getting login page
 	public String getLogin() {
 
 		logger.debug("Executing Login page...");
@@ -69,6 +69,12 @@ public class UserController {
 				if (users.getUsername().equalsIgnoreCase(usersList.get(i).getUsername())) {
 					model.addAttribute("usernameError", "This username is already exists");
 					logger.error("Username is already exists");
+					return "register";
+				}
+
+				if (users.getMobileno().equalsIgnoreCase(usersList.get(i).getMobileno())) {
+					model.addAttribute("mobileError", "Mobile number is already exists");
+					logger.error("Mobile number is already exists");
 					return "register";
 				}
 			}
