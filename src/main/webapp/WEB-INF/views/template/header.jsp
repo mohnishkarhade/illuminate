@@ -75,8 +75,8 @@
 						aria-haspopup="true" aria-expanded="false"> Category </a>
 						<div class="dropdown-menu"
 							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="<c:url value="/admin/add-category" />">Add Category</a> <a
-								class="dropdown-item" href="#">All Category</a>
+							<a class="dropdown-item" href="<c:url value="/admin/addCategory" />">Add Category</a> <a
+								class="dropdown-item" href="<c:url value="/admin/category" />">All Category</a>
 						</div></li>
 				</ul>
 			</div>
