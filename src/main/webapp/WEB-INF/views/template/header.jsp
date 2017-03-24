@@ -69,14 +69,18 @@
 
 			<div class="collapse navbar-collapse" id="admin-navigation-menu">
 				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link"
+						href="<spring:url value="/admin" />">Dashboard</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="http://example.com"
 						id="navbarDropdownMenuLink" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false"> Category </a>
 						<div class="dropdown-menu"
 							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="<c:url value="/admin/addCategory" />">Add Category</a> <a
-								class="dropdown-item" href="<c:url value="/admin/category" />">All Category</a>
+							<a class="dropdown-item"
+								href="<c:url value="/admin/addCategory" />">Add Category</a> <a
+								class="dropdown-item" href="<c:url value="/admin/category" />">All
+								Category</a>
 						</div></li>
 				</ul>
 			</div>

@@ -1,5 +1,7 @@
 package com.niit.illuminate.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import com.niit.illuminatebe.service.CategoryService;
 @RequestMapping("/admin")
 public class AdminController {
 
-	private final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	@Autowired
 	private Category category;
@@ -35,7 +37,8 @@ public class AdminController {
 	public String category(Model model) {
 		logger.info("Starting (manage) category method");
 		model.addAttribute("category", category);
-		model.addAttribute("categoryList", categoryService.getAllCategories());
+		List<Category> categoryList = categoryService.getAllCategories();
+		model.addAttribute("categoryList", categoryList);
 		logger.info("Ending (manage) category method");
 		return "admin/category";
 	}
