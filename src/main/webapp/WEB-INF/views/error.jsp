@@ -8,10 +8,11 @@
 		<hr class="my-4">
 		<p>We track these errors automatically, but if the problem
 			persists feel free to contact us. In the meantime, try refreshing.</p>
-		<p class="lead">
-			<a class="btn btn-primary btn-lg" href="<spring:url value="/" />" role="button">Back To
-				Home</a>
-		</p>
+		<c:if test="${not empty catchError }">
+			<div class="alert alert-danger">${catchError }</div>
+		</c:if>
+		<a class="btn btn-primary btn-lg" href="<spring:url value="/" />"
+			role="button">Back To Home</a>
 	</div>
 </div>
 <%@include file="/WEB-INF/views/template/footer.jsp"%>

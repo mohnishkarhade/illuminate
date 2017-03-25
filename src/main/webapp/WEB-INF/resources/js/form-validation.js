@@ -33,3 +33,23 @@ $(function() {
 	})
 
 })
+
+$(function() {
+
+	$("form[id='category-form']").validate({
+
+		rules : {
+			name : "required"			
+		},
+
+		message : {
+			name : "Category Name is required",			
+		},
+
+		submitHandler : function(form) {
+			form.submit();
+		}
+
+	})
+
+})

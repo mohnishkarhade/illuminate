@@ -24,5 +24,11 @@
 }
 
 label.error {
-	font-size: 12px;	
+	font-size: 12px;
+}
+
+.heading-one {
+	padding: 5px 5px 10px;
+	border-left: solid 5px #025AA5;
+	color: #025AA5;
 }

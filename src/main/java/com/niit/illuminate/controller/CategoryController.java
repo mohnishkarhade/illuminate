@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,7 +36,7 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "/addCategory", method = RequestMethod.POST)
-	public String addCategory(@ModelAttribute("category") Category category, BindingResult result, Model model) {
+	public String addCategoryPost(@ModelAttribute("category") Category category, BindingResult result, Model model) {
 
 		logger.info("Starting addCategory method");
 		if (result.hasErrors()) {
@@ -54,6 +55,8 @@ public class CategoryController {
 
 			boolean flag = categoryService.save(category);
 			if (flag) {
+				category = new Category();
+				model.addAttribute("category", category);
 				model.addAttribute("success", "Category added successfully");
 				return "admin/addcategory";
 			} else {
@@ -61,6 +64,29 @@ public class CategoryController {
 				return "admin/addcategory";
 			}
 
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
+	}
+
+	@RequestMapping("/deleteCategory/{id}")
+	public String deleteCategory(@PathVariable("id") int id, Model model) {
+		logger.info("Starting deleteCategory method");
+		try {
+			logger.info("Deleting category...");
+			boolean flag = categoryService.delete(id);
+			if (flag) {
+				logger.info("Category deleted successfully");
+				model.addAttribute("success", "Category deleted successfully.");
+				return "forward:/admin/category";
+			} else {
+				logger.error("Failed to delete category");
+				model.addAttribute("error", "Failed to delete category");
+				return "forward:/admin/category";
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			logger.error("Exception occured " + e);
