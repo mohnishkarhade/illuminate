@@ -30,7 +30,7 @@ public class CategoryController {
 
 	@RequestMapping(value = "/addCategory", method = RequestMethod.GET)
 	public String addCategory(Model model) {
-
+		category = new Category();
 		model.addAttribute("category", category);
 		return "admin/addcategory";
 	}
@@ -87,6 +87,51 @@ public class CategoryController {
 				model.addAttribute("error", "Failed to delete category");
 				return "forward:/admin/category";
 			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
+	}
+
+	@RequestMapping(value = "/editCategory/{id}", method = RequestMethod.GET)
+	public String editCategory(@PathVariable("id") int id, Model model) {
+		logger.info("Starting editCategory get method");
+		try {
+			category = categoryService.getCategoryById(id);
+			model.addAttribute("category", category);
+			return "admin/editcategory";
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
+	}
+
+	@RequestMapping(value = "/editCategory", method = RequestMethod.POST)
+	public String editCategoryPost(@ModelAttribute("category") Category category, BindingResult result, Model model) {
+		logger.info("Starting editCategory post method");
+		if (result.hasErrors()) {
+			return "error";
+		}
+		List<Category> categoryList = categoryService.getAllCategories();
+		try {
+			logger.info("Updating category...");
+			boolean flag = categoryService.update(category);
+			if (flag) {
+				category = new Category();
+				model.addAttribute("category", category);
+				model.addAttribute("success", "Category updated successfully");
+				logger.info("Category updated successfully");
+				return "admin/editcategory";
+			} else {
+				model.addAttribute("error", "Failed to update category");
+				logger.error("Failed to update category");
+				return "admin/editcategory";
+			}
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			logger.error("Exception occured " + e);
