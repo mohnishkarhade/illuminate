@@ -55,7 +55,7 @@
 		</div>
 	</nav>
 
-	<nav class="navbar navbar-toggleable-md bg-faded navbar-light"
+	<nav class="navbar navbar-toggleable-md bg-primary navbar-inverse"
 		id="admin-navigation">
 		<div class="container">
 			<button class="navbar-toggler navbar-toggler-right" type="button"
@@ -92,6 +92,17 @@
 								href="<c:url value="/admin/addSupplier" />">Add Supplier</a> <a
 								class="dropdown-item" href="<c:url value="/admin/supplier" />">All
 								Supplier</a>
+						</div></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#"
+						id="navbarDropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"> Product </a>
+						<div class="dropdown-menu"
+							aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item"
+								href="<c:url value="/admin/addProduct" />">Add Product</a> <a
+								class="dropdown-item" href="<c:url value="/admin/product" />">All
+								Products</a>
 						</div></li>
 				</ul>
 			</div>

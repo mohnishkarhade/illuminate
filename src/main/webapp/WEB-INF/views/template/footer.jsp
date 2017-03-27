@@ -1,3 +1,4 @@
+<div class="space"></div>
 <!-- jQuery first, then Tether, then Bootstrap JS. -->
 <script src="<spring:url value="/resources/js/jquery-3.1.1.min.js" />"></script>
 <script
@@ -7,6 +8,6 @@
 <script src="<spring:url value="/resources/js/bootstrap.min.js" />"></script>
 <script
 	src="<spring:url value="/resources/js/jquery.validate.min.js" />"></script>
-<script src="<spring:url value="/resources/js/form-validation.js" />" ></script>
+<script src="<spring:url value="/resources/js/form-validation.js" />"></script>
 </body>
 </html>
