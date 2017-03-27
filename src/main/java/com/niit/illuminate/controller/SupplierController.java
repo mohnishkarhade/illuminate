@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,7 +35,7 @@ public class SupplierController {
 		model.addAttribute("supplier", supplier);
 		return "admin/addsupplier";
 	}
-	
+
 	@RequestMapping(value = "/addSupplier", method = RequestMethod.POST)
 	public String addSupplierPost(@ModelAttribute("supplier") Supplier supplier, BindingResult result, Model model) {
 
@@ -63,6 +64,74 @@ public class SupplierController {
 			} else {
 				model.addAttribute("error", "Failed to add supplier");
 				return "admin/addsupplier";
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
+	}
+
+	@RequestMapping("/deleteSupplier/{id}")
+	public String deleteSupplier(@PathVariable("id") int id, Model model) {
+		logger.info("Starting deleteSupplier method");
+		try {
+			logger.info("Deleting supplier...");
+			boolean flag = supplierService.delete(id);
+			if (flag) {
+				logger.info("Supplier deleted successfully");
+				model.addAttribute("success", "Supplier deleted successfully.");
+				return "forward:/admin/supplier";
+			} else {
+				logger.error("Failed to delete supplier");
+				model.addAttribute("error", "Failed to delete supplier");
+				return "forward:/admin/supplier";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
+	}
+
+	@RequestMapping(value = "/editSupplier/{id}", method = RequestMethod.GET)
+	public String editSupplier(@PathVariable("id") int id, Model model) {
+		logger.info("Starting editSupplier get method");
+		try {
+			supplier = supplierService.getSupplierById(id);
+			model.addAttribute("supplier", supplier);
+			return "admin/editsupplier";
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
+	}
+
+	@RequestMapping(value = "/editSupplier", method = RequestMethod.POST)
+	public String editSupplierPost(@ModelAttribute("supplier") Supplier supplier, BindingResult result, Model model) {
+		logger.info("Starting editSupplier post method");
+		if (result.hasErrors()) {
+			return "error";
+		}
+		List<Supplier> supplierList = supplierService.getAllSuppliers();
+		try {
+			logger.info("Updating supplier...");
+			boolean flag = supplierService.update(supplier);
+			if (flag) {
+				supplier = new Supplier();
+				model.addAttribute("supplier", supplier);
+				model.addAttribute("success", "Supplier updated successfully");
+				logger.info("Supplier updated successfully");
+				return "admin/editsupplier";
+			} else {
+				model.addAttribute("error", "Failed to update supplier");
+				logger.error("Failed to update supplier");
+				return "admin/editsupplier";
 			}
 
 		} catch (Exception e) {

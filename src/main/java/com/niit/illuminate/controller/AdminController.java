@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.niit.illuminatebe.model.Category;
+import com.niit.illuminatebe.model.Supplier;
 import com.niit.illuminatebe.service.CategoryService;
+import com.niit.illuminatebe.service.SupplierService;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,6 +26,12 @@ public class AdminController {
 
 	@Autowired
 	private CategoryService categoryService;
+
+	@Autowired
+	private Supplier supplier;
+
+	@Autowired
+	private SupplierService supplierService;
 
 	@RequestMapping("")
 	public String dashboard() {
@@ -51,10 +59,12 @@ public class AdminController {
 		return "admin/product";
 	}
 
-	@RequestMapping("/supplier")
-	public String supplier() {
+	@RequestMapping(value = "/supplier", method = RequestMethod.GET)
+	public String supplier(Model model) {
 		logger.info("Starting (manage) supplier method");
-
+		model.addAttribute("supplier", supplier);
+		List<Supplier> supplierList = supplierService.getAllSuppliers();
+		model.addAttribute("supplierList", supplierList);
 		logger.info("Ending (manage) supplier method");
 		return "admin/supplier";
 	}
