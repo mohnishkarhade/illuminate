@@ -53,6 +53,8 @@ public class UserController {
 	public String saveUser(@ModelAttribute("users") Users users, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
+			logger.error("Binding Result has error");
+			model.addAttribute("error", "Binding Result has error");
 			return "error";
 		}
 

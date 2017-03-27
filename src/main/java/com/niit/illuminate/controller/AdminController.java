@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.niit.illuminatebe.model.Category;
+import com.niit.illuminatebe.model.Product;
 import com.niit.illuminatebe.model.Supplier;
 import com.niit.illuminatebe.service.CategoryService;
+import com.niit.illuminatebe.service.ProductService;
 import com.niit.illuminatebe.service.SupplierService;
 
 @Controller
@@ -33,6 +35,12 @@ public class AdminController {
 	@Autowired
 	private SupplierService supplierService;
 
+	@Autowired
+	private Product product;
+
+	@Autowired
+	private ProductService productService;
+
 	@RequestMapping("")
 	public String dashboard() {
 		logger.info("Starting dashboard method");
@@ -52,9 +60,11 @@ public class AdminController {
 	}
 
 	@RequestMapping("/product")
-	public String product() {
+	public String product(Model model) {
 		logger.info("Starting (manage) product method");
-
+		model.addAttribute("product", product);
+		List<Product> productList = productService.getAllProducts();
+		model.addAttribute("productList", productList);
 		logger.info("Ending (manage) product method");
 		return "admin/product";
 	}

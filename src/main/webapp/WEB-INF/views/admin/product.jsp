@@ -19,13 +19,20 @@
 				<th>Product ID</th>
 				<th>Product Name</th>
 				<th>Product Description</th>
+				<th>Price</th>
+				<th>Category</th>
+				<th>Supplier</th>
 				<th>Actions</th>
 			</tr>
+			
 			<c:forEach items="${productList}" var="product">
 				<tr>
 					<td>${product.id}</td>
 					<td>${product.name}</td>
 					<td>${product.description}</td>
+					<td>${product.price }</td>
+					<td>${product.category.name }</td>
+					<td>${product.supplier.name }</td>
 					<td><a
 						href="<c:url value='/admin/editProduct/${product.id}' />"><i
 							class="fa fa-pencil btn btn-info btn-xs"></i></a> &nbsp; <a

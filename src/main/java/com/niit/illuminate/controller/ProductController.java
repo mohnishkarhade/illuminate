@@ -1,12 +1,17 @@
 package com.niit.illuminate.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.niit.illuminatebe.model.Category;
 import com.niit.illuminatebe.model.Product;
@@ -42,6 +47,44 @@ public class ProductController {
 		product.setSupplier(supplier);
 		model.addAttribute("product", product);
 		return "admin/addproduct";
+	}
+
+	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
+	public String addProduct(@ModelAttribute("product") Product product, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			logger.error("Binding Result has error");
+			model.addAttribute("error", "Binding Result has error");
+			return "error";
+		}
+
+		List<Product> productList = productService.getAllProducts();
+
+		try {
+			for (int i = 0; i < productList.size(); i++) {
+				if (product.getName().equalsIgnoreCase(productList.get(i).getName())) {
+					model.addAttribute("duplicateProduct", "This product is already exists");
+					logger.error("Product is already exist");
+					return "admin/addproduct";
+				}
+			}
+
+			boolean flag = productService.save(product);
+			if (flag) {
+				model.addAttribute("success", "Product added successfully");
+				logger.info("Product added successfully");
+				return "admin/addproduct";
+			} else {
+				model.addAttribute("error", "Adding product Failed, Please try again !");
+				logger.error("Product adding failed");
+				return "admin/addproduct";
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
 	}
 
 }
