@@ -28,7 +28,7 @@
 
 	<spring:url value="/admin/addProduct" var="addProduct"></spring:url>
 	<form:form action="${addProduct }" method="post" commandName="product"
-		id="product-form">
+		id="product-form" enctype="multipart/form-data">
 		<div class="form-group">
 			<form:label path="name">Product Name:</form:label>
 			<form:input path="name" class="form-control"></form:input>

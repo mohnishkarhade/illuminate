@@ -2,6 +2,8 @@ package com.niit.illuminate.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.niit.illuminate.util.FileUtil;
 import com.niit.illuminatebe.model.Category;
 import com.niit.illuminatebe.model.Product;
 import com.niit.illuminatebe.model.Supplier;
@@ -50,7 +54,8 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-	public String addProduct(@ModelAttribute("product") Product product, BindingResult result, Model model) {
+	public String addProduct(@ModelAttribute("product") Product product, BindingResult result, Model model,
+			HttpServletRequest request) {
 		if (result.hasErrors()) {
 			logger.error("Binding Result has error");
 			model.addAttribute("error", "Binding Result has error");
@@ -69,6 +74,12 @@ public class ProductController {
 			}
 
 			boolean flag = productService.save(product);
+			MultipartFile file = product.getFile();
+			String path = request.getSession().getServletContext().getRealPath("/resources/images/");
+			logger.info(path);
+			String filename = path + "\\" + product.getId() + ".jpg";
+			logger.info(filename);
+			FileUtil.upload(path, file, filename);
 			if (flag) {
 				model.addAttribute("success", "Product added successfully");
 				logger.info("Product added successfully");
