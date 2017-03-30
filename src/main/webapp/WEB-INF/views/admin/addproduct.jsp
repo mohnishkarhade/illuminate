@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	isELIgnored="false" pageEncoding="ISO-8859-1"%>
 <%@include file="/WEB-INF/views/template/header.jsp"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -42,16 +44,16 @@
 			<form:input path="price" class="form-control"></form:input>
 		</div>
 		<div class="form-group">
-			<form:label path="category.id">Category</form:label>
-			<form:select path="category.id" class="form-control">
+			<form:label path="categoryId">Category</form:label>
+			<form:select path="categoryId" class="form-control">
 				<c:forEach items="${categoryList }" var="category">
 					<form:option value="${category.id }">${category.name} </form:option>
 				</c:forEach>
 			</form:select>
 		</div>
 		<div class="form-group">
-			<form:label path="supplier.id">Supplier</form:label>
-			<form:select path="supplier.id" class="form-control">
+			<form:label path="supplierId">Supplier</form:label>
+			<form:select path="supplierId" class="form-control">
 				<c:forEach items="${supplierList }" var="supplier">
 					<form:option value="${supplier.id }">${supplier.name} </form:option>
 				</c:forEach>
@@ -59,7 +61,7 @@
 		</div>
 		<div class="form-group">
 			<form:label path="file">Upload Image</form:label>
-			<input type="file" name="file">
+			<form:input path="file" type="file" class="form-control" />
 		</div>
 
 		<input type="submit" class="btn btn-success" value="Add Product">

@@ -1,6 +1,8 @@
 package com.niit.illuminate.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,14 +15,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.niit.illuminate.util.FileUtil;
 import com.niit.illuminatebe.model.Category;
 import com.niit.illuminatebe.model.Product;
 import com.niit.illuminatebe.model.Supplier;
+import com.niit.illuminatebe.service.CategoryService;
 import com.niit.illuminatebe.service.ProductService;
+import com.niit.illuminatebe.service.SupplierService;
 
 @Controller
 @RequestMapping("/admin")
@@ -38,18 +41,21 @@ public class ProductController {
 	private Supplier supplier;
 
 	@Autowired
+	private CategoryService categoryService;
+
+	@Autowired
+	private SupplierService supplierService;
+
+	@Autowired
 	private ProductService productService;
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
-	public String addProductView(Model model) {
+	public String addProduct(Model model) {
 		logger.info("starting addProductView get method");
 		product = new Product();
-		category = new Category();
-		supplier = new Supplier();
-
-		product.setCategory(category);
-		product.setSupplier(supplier);
-		model.addAttribute("product", product);
+		model.addAttribute("categoryList", categoryService.getAllCategories());
+		model.addAttribute("supplierList", supplierService.getAllSuppliers());		
+		model.addAttribute("product", product);		
 		return "admin/addproduct";
 	}
 
@@ -72,7 +78,9 @@ public class ProductController {
 					return "admin/addproduct";
 				}
 			}
-
+			Set<Product> productSet = new HashSet<Product>();
+			productSet.add(product);
+			category.setProducts(productSet);
 			boolean flag = productService.save(product);
 			MultipartFile file = product.getFile();
 			String path = request.getSession().getServletContext().getRealPath("/resources/images/");
@@ -93,7 +101,7 @@ public class ProductController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.error("Exception occured " + e);
-			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			model.addAttribute("catchError", "Server is not responding please try again letter." + e);
 			return "error";
 		}
 	}

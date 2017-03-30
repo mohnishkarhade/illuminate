@@ -30,8 +30,8 @@ public class HomeController {
 	public String getHome(){
 		logger.info("Executing Home page...");
 		
-		session.setAttribute("categoryList", categoryService.getAllCategories());
-		session.setAttribute("supplierList", supplierService.getAllSuppliers());
+//		session.setAttribute("categoryList", categoryService.getAllCategories());
+//		session.setAttribute("supplierList", supplierService.getAllSuppliers());
 		
 		return "index";
 	}
