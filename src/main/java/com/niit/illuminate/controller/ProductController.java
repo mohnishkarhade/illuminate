@@ -85,7 +85,7 @@ public class ProductController {
 			category.setProducts(productSet);
 			boolean flag = productService.save(product);
 			file = product.getFile();
-			String path = request.getServletContext().getRealPath("/resources/images/");
+			String path = request.getServletContext().getRealPath("/WEB-INF/resources/images/");
 
 			logger.info(path);
 			String filename = product.getId() + ".jpg";

@@ -32,5 +32,6 @@
 	</bean>
 
 	<mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
+	<!-- <mvc:resources mapping="/images/**" location="/images/" /> -->
 	<tx:annotation-driven />
 </beans>
