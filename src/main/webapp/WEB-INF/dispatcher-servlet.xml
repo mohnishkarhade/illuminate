@@ -11,11 +11,15 @@
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<context:component-scan base-package="com.niit.illuminate, com.niit.illuminatebe" />
-	<!-- <bean id="viewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator"> 
-		<property name="viewResolver"> <list> <ref bean="viewResolver" /> </list> 
-		</property> </bean> -->
 
 	<mvc:annotation-driven />
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		<!-- one of the several properties available; the maximum file size in 
+			bytes -->
+		<property name="maxUploadSizePerFile" value="5242880" />
+	</bean>
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -28,5 +32,5 @@
 	</bean>
 
 	<mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
-	<tx:annotation-driven/>
+	<tx:annotation-driven />
 </beans>

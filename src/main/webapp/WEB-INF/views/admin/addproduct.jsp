@@ -30,7 +30,7 @@
 
 	<spring:url value="/admin/addProduct" var="addProduct"></spring:url>
 	<form:form action="${addProduct }" method="post" commandName="product"
-		id="product-form" enctype="multipart/form-data">
+		enctype="multipart/form-data" id="product-form" >
 		<div class="form-group">
 			<form:label path="name">Product Name:</form:label>
 			<form:input path="name" class="form-control"></form:input>
@@ -61,7 +61,7 @@
 		</div>
 		<div class="form-group">
 			<form:label path="file">Upload Image</form:label>
-			<form:input path="file" type="file" class="form-control" />
+			<form:input path="file" type="file" class="form-control input-sm" />			
 		</div>
 
 		<input type="submit" class="btn btn-success" value="Add Product">

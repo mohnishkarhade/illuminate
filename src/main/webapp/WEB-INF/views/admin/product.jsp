@@ -16,6 +16,7 @@
 	<c:if test="${not empty productList}">
 		<table class="table table-bordered">
 			<tr>
+				<th></th>
 				<th>Product ID</th>
 				<th>Product Name</th>
 				<th>Product Description</th>
@@ -27,6 +28,7 @@
 			
 			<c:forEach items="${productList}" var="product">
 				<tr>
+					<td><img alt="" src="<c:url value="/resources/images/${product.id }.jpg" />" class="img-responsive" width="100"></td>
 					<td>${product.id}</td>
 					<td>${product.name}</td>
 					<td>${product.description}</td>

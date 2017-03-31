@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.niit.illuminate.util.FileUtil;
@@ -54,14 +56,14 @@ public class ProductController {
 		logger.info("starting addProductView get method");
 		product = new Product();
 		model.addAttribute("categoryList", categoryService.getAllCategories());
-		model.addAttribute("supplierList", supplierService.getAllSuppliers());		
-		model.addAttribute("product", product);		
+		model.addAttribute("supplierList", supplierService.getAllSuppliers());
+		model.addAttribute("product", product);
 		return "admin/addproduct";
 	}
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-	public String addProduct(@ModelAttribute("product") Product product, BindingResult result, Model model,
-			HttpServletRequest request) {
+	public String addProduct(@ModelAttribute("product") Product product, @RequestParam("file") MultipartFile file,
+			BindingResult result, Model model, HttpServletRequest request) {
 		if (result.hasErrors()) {
 			logger.error("Binding Result has error");
 			model.addAttribute("error", "Binding Result has error");
@@ -82,10 +84,11 @@ public class ProductController {
 			productSet.add(product);
 			category.setProducts(productSet);
 			boolean flag = productService.save(product);
-			MultipartFile file = product.getFile();
-			String path = request.getSession().getServletContext().getRealPath("/resources/images/");
+			file = product.getFile();
+			String path = request.getServletContext().getRealPath("/resources/images/");
+
 			logger.info(path);
-			String filename = path + "\\" + product.getId() + ".jpg";
+			String filename = product.getId() + ".jpg";
 			logger.info(filename);
 			FileUtil.upload(path, file, filename);
 			if (flag) {
@@ -101,7 +104,7 @@ public class ProductController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.error("Exception occured " + e);
-			model.addAttribute("catchError", "Server is not responding please try again letter." + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.\n" + e);
 			return "error";
 		}
 	}

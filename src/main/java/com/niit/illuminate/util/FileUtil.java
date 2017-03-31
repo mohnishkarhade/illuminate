@@ -11,14 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtil {
 
-	private static Logger log = LoggerFactory.getLogger(FileUtil.class);
+	private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
 	// private static String workingDir =
 	// System.getProperty("user.dir");//D:\Softwares\IDE\eclipse-jee-neon-RC3-win32-x86_64\eclipse
 
 	// "D:\\ShoppingCart\\Images";
 	public static void upload(String path, MultipartFile file, String fileName) {
-		log.debug("Starting of the method upload");
-		log.debug("Current Path :" + Paths.get("").toFile());
+		logger.info("Starting of the method upload");
+		logger.info("Current Path :" + Paths.get("").toFile());
 		Util.removeComma(fileName);
 		if (!file.isEmpty()) {
 			try {
@@ -37,13 +37,13 @@ public class FileUtil {
 				stream.write(bytes);
 				stream.close();
 
-				log.info("Server File Location=" + serverFile.getAbsolutePath());
+				logger.info("Server File Location=" + serverFile.getAbsolutePath());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-		log.debug("Ending of the method upload");
+		logger.debug("Ending of the method upload");
 
 	}
 
