@@ -1,16 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	isELIgnored="false" pageEncoding="ISO-8859-1"%>
 <%@include file="/WEB-INF/views/template/header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <div class="space"></div>
 <div class="container">
 	<h2 class="heading-one">Manage Product</h2>
+
 	<div class="filter pull-right">
 		<form class="form-inline" action="<c:url value="/admin/product" />"
 			method="post">
 			<label class="mr-sm-2" for="inlineFormCustomSelect">Filter:</label> <select
 				class="custom-select" id="inlineFormCustomSelect" name="filter"
 				required="true">
-				<option value="" selected>Select...</option>
 				<option value="Running">Running</option>
 				<option value="Discontinued">Discontinued</option>
 			</select>&nbsp;
@@ -53,13 +55,17 @@
 					<td>${product.price }</td>
 					<td>${product.category.name }</td>
 					<td>${product.supplier.name }</td>
-					<td>${product.status }&nbsp;<a
-						href="<c:url value="/admin/changeStatus/${product.id }" />"> <i>Change</i></a></td>
+					<td>${product.status }</td>
 					<td><a
 						href="<c:url value='/admin/editProduct/${product.id}' />"><i
-							class="fa fa-pencil btn btn-info btn-xs"></i></a> &nbsp; <a
-						href="<c:url value='/admin/deleteProduct/${product.id}' />"><i
-							class="fa fa-trash btn btn-danger btn-xs"></i></a></td>
+							class="fa fa-pencil btn btn-info btn-xs"></i></a> &nbsp; <c:if
+							test="${product.status == 'Running' }">
+							<a href="<c:url value='/admin/changeStatus/${product.id }' />"><i
+								class="fa fa-times-rectangle btn btn-danger btn-xs"></i></a>
+						</c:if> <c:if test="${product.status == 'Discontinued' }">
+							<a href="<c:url value='/admin/changeStatus/${product.id }' />"><i
+								class="fa fa-check-square btn btn-success btn-xs"></i></a>
+						</c:if></td>
 				</tr>
 			</c:forEach>
 		</table>
