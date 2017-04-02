@@ -53,6 +53,7 @@ public class CategoryController {
 				}
 			}
 
+			category.setStatus("Running");
 			boolean flag = categoryService.save(category);
 			if (flag) {
 				category = new Category();

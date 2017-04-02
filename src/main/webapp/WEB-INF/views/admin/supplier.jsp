@@ -19,6 +19,7 @@
 				<th>Supplier ID</th>
 				<th>Supplier Name</th>
 				<th>Address</th>
+				<th>Status</th>
 				<th>Actions</th>
 			</tr>
 			<c:forEach items="${supplierList}" var="supplier">
@@ -26,6 +27,7 @@
 					<td>${supplier.id}</td>
 					<td>${supplier.name}</td>
 					<td>${supplier.address}</td>
+					<td>${supplier.status }</td>
 					<td><a
 						href="<c:url value='/admin/editSupplier/${supplier.id}' />"><i
 							class="fa fa-pencil btn btn-info btn-xs"></i></a> &nbsp; <a

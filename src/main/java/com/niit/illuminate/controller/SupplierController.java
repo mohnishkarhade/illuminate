@@ -55,6 +55,7 @@ public class SupplierController {
 				}
 			}
 
+			supplier.setStatus("Running");
 			boolean flag = supplierService.save(supplier);
 			if (flag) {
 				supplier = new Supplier();

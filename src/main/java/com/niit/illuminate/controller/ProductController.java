@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,6 +84,7 @@ public class ProductController {
 			Set<Product> productSet = new HashSet<Product>();
 			productSet.add(product);
 			category.setProducts(productSet);
+			product.setStatus("Running");
 			boolean flag = productService.save(product);
 			file = product.getFile();
 			String path = request.getServletContext().getRealPath("/WEB-INF/resources/images/");
@@ -103,6 +105,70 @@ public class ProductController {
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.\n" + e);
+			return "error";
+		}
+	}
+
+	@RequestMapping(value = "/product", method = RequestMethod.POST)
+	public String filterProduct(@RequestParam("filter") String filter, Model model) {
+		try {
+			logger.info("Starting filterProduct method");
+			model.addAttribute("product", product);
+			List<Product> productList = productService.viewByStatus(filter);
+			model.addAttribute("productList", productList);
+			logger.info("Ending filterProduct method");
+			return "admin/product";
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.\n" + e);
+			return "error";
+		}
+	}
+
+	@RequestMapping("/deleteProduct/{id}")
+	public String deleteProduct(@PathVariable("id") int id, Model model) {
+		logger.info("Starting delete product method");
+		try {
+			logger.info("Deleting product...");
+			boolean flag = productService.delete(id);
+
+			if (flag) {
+				logger.info("Product deleted successfully");
+				model.addAttribute("success", "Product deleted successfully.");
+				return "forward:/admin/product";
+			} else {
+				logger.error("Failed to delete product");
+				model.addAttribute("error", "Failed to delete product");
+				return "forward:/admin/product";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.\n" + e);
+			return "error";
+		}
+	}
+
+	@RequestMapping("/changeStatus/{id}")
+	public String changeStatus(@PathVariable("id") int id, Model model) {
+		logger.info("Starting change Status method");
+		try {
+			int result = productService.changeStatus(id);
+			if (result > 0) {
+				logger.info("Product status updated successfully");
+				model.addAttribute("success", "Product status updated successfully.");
+				return "forward:/admin/product";
+			} else {
+				logger.error("Failed to update product status");
+				model.addAttribute("error", "Failed to update product status");
+				return "forward:/admin/product";
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
 			logger.error("Exception occured " + e);
 			model.addAttribute("catchError", "Server is not responding please try again letter.\n" + e);
 			return "error";

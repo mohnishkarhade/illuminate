@@ -19,6 +19,7 @@
 				<th>Category ID</th>
 				<th>Category Name</th>
 				<th>Category Description</th>
+				<th>Status</th>
 				<th>Actions</th>
 			</tr>
 			<c:forEach items="${categoryList}" var="category">
@@ -26,6 +27,7 @@
 					<td>${category.id}</td>
 					<td>${category.name}</td>
 					<td>${category.description}</td>
+					<td>${category.status }</td>
 					<td><a
 						href="<c:url value='/admin/editCategory/${category.id}' />"><i
 							class="fa fa-pencil btn btn-info btn-xs"></i></a> &nbsp; <a

@@ -1,9 +1,24 @@
 <%@include file="/WEB-INF/views/template/header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <div class="space"></div>
 <div class="container">
 	<h2 class="heading-one">Manage Product</h2>
+	<div class="filter pull-right">
+		<form class="form-inline" action="<c:url value="/admin/product" />"
+			method="post">
+			<label class="mr-sm-2" for="inlineFormCustomSelect">Filter:</label> <select
+				class="custom-select" id="inlineFormCustomSelect" name="filter"
+				required="true">
+				<option value="" selected>Select...</option>
+				<option value="Running">Running</option>
+				<option value="Discontinued">Discontinued</option>
+			</select>&nbsp;
+			<button type="submit" class="btn btn-primary">Go!</button>
+		</form>
+	</div>
+	<div class="clearfix"></div>
+	<br>
 	<c:if test="${empty productList }">
 		<div class="alert alert-warning">No data available in database</div>
 	</c:if>
@@ -23,18 +38,23 @@
 				<th>Price</th>
 				<th>Category</th>
 				<th>Supplier</th>
+				<th>Status</th>
 				<th>Actions</th>
 			</tr>
-			
+
 			<c:forEach items="${productList}" var="product">
 				<tr>
-					<td><img alt="" src="<c:url value="/resources/images/${product.id }.jpg" />" class="img-responsive" width="100"></td>
+					<td><img alt=""
+						src="<c:url value="/resources/images/${product.id }.jpg" />"
+						class="img-responsive" width="100"></td>
 					<td>${product.id}</td>
 					<td>${product.name}</td>
 					<td>${product.description}</td>
 					<td>${product.price }</td>
 					<td>${product.category.name }</td>
 					<td>${product.supplier.name }</td>
+					<td>${product.status }&nbsp;<a
+						href="<c:url value="/admin/changeStatus/${product.id }" />"> <i>Change</i></a></td>
 					<td><a
 						href="<c:url value='/admin/editProduct/${product.id}' />"><i
 							class="fa fa-pencil btn btn-info btn-xs"></i></a> &nbsp; <a
