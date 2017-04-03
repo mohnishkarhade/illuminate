@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+	<security:http auto-config="true">
+
+		<security:intercept-url pattern="/admin/**"
+			access="hasRole('ROLE_ADMIN')" />
+
+		<security:intercept-url pattern="/myCart/**"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/cart_checkout**"
+			access="hasRole('ROLE_USER')" />
+
+		<!-- Be-default spring provide login page. the user name text field is 
+			'username' password text fiend name is 'password' . If you created your own 
+			loging.jsp. please follow the same naming convetion. -->
+		<security:form-login login-page="/login"
+			login-processing-url="/j_spring_security_check" username-parameter="username"
+			password-parameter="password" authentication-failure-forward-url="/loginError"
+			authentication-success-forward-url="/validate" />
+
+		<security:access-denied-handler
+			error-page="/accessDenied" />
+
+		<!-- Cross Site Reference Forgery -->
+		<security:csrf />
+
+		<!-- You might have added some properties to HTTPSeession object at the 
+			time of login, You have to remove OR invalidate -->
+		<security:logout logout-url="/logout" />
+
+	</security:http>	
+
+	<!-- dataSource must be same as in ApplicationContextConfig -->
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				users-by-username-query="select username, password, 'true' as enabled from users where username = ?"
+				authorities-by-username-query="select username, authority from authorities where username = ?" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

@@ -2,9 +2,15 @@ package com.niit.illuminate.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,11 +34,61 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 
+	@Autowired
+	private HttpSession session;
+
 	@RequestMapping("/login") // Getting login page
 	public String getLogin() {
 
-		logger.debug("Executing Login page...");
+		logger.info("Executing Login page...");
 		return "login";
+
+	}
+
+	@RequestMapping(value = "/validate", method = RequestMethod.POST)
+	public String validate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.info("starting of the method validate");
+
+		session = request.getSession(true);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+
+		session.setAttribute("loggedInUser", username);
+		session.setAttribute("welcomeMsg", "WELCOME " + customerService.getUserByUserName(username).getName());
+
+		if (request.isUserInRole("ROLE_ADMIN")) {
+			session.setAttribute("isAdmin", true);
+			return "admin/dashboard";
+		} else {
+			session.setAttribute("isAdmin", false);
+			/*
+			 * mv.addObject("myCart", myCart); // Fetch the myCart list based on
+			 * user ID List<MyCart> mycartList = mycartDAO.list(userID);
+			 * mv.addObject("cartList", mycartList); mv.addObject("cartSize",
+			 * mycartList.size()); mv.addObject("totalAmount",
+			 * mycartDAO.getTotalAmount(userID));
+			 */
+			logger.info("Ending of the method validate");
+			return "index";
+
+		}
+	}
+
+	@RequestMapping(value = "/loginError", method = RequestMethod.POST)
+	public String loginError(Model model) {
+		logger.info("Starting of the method loginError");
+		model.addAttribute("error", "Invalid Credentials.  Please try again.");
+		logger.info("Ending of the method loginError");
+		return "login";
+	}
+
+	@RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
+	public String accessDenied(Model model) {
+		logger.debug("Starting of the method accessDenied");
+		model.addAttribute("error", "You are not authorized to access this page");
+
+		logger.debug("Ending of the method accessDenied");
+		return "error";
 
 	}
 
