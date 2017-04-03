@@ -1,8 +1,10 @@
 package com.niit.illuminate.exception;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.sql.SQLException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.hql.internal.ast.QuerySyntaxException;
@@ -83,6 +85,36 @@ public class IlluminateExceptionHandler {
 		mv.addObject("errorMessage", e.getMessage());
 
 		logger.debug("Ending of the method handleIOException ");
+		return mv;
+
+	}
+
+	@ExceptionHandler(ServletException.class)
+	public ModelAndView handleServletException(ServletException e) {
+		logger.debug("Starting of the method handleServletException ");
+
+		ModelAndView mv = new ModelAndView("error");
+		// ModelAndView mv = new ModelAndView("error");
+		mv.addObject("error", "Not able to connect to server.  please contact administration");
+
+		mv.addObject("errorMessage", e.getMessage());
+
+		logger.debug("Ending of the method handleServletException ");
+		return mv;
+
+	}
+	
+	@ExceptionHandler(ConnectException.class)
+	public ModelAndView handleConnectionException(ConnectException e) {
+		logger.debug("Starting of the method handleConnectionException ");
+
+		ModelAndView mv = new ModelAndView("error");
+		// ModelAndView mv = new ModelAndView("error");
+		mv.addObject("error", "Not able to connect to server.  please contact administration");
+
+		mv.addObject("errorMessage", e.getMessage());
+
+		logger.debug("Ending of the method handleConnectionException ");
 		return mv;
 
 	}

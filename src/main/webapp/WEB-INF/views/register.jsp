@@ -37,7 +37,7 @@
 						</div>
 					</c:if>
 
-					<form:form action="${addUser }" method="post" commandName="users" id="registrationForm">
+					<form:form action="${addUser }" method="post" commandName="customer" id="registrationForm">
 						<div class="form-group">
 							<form:label path="name">Name</form:label>
 							<form:input path="name" class="form-control"></form:input>

@@ -13,6 +13,7 @@
 			<label class="mr-sm-2" for="inlineFormCustomSelect">Filter:</label> <select
 				class="custom-select" id="inlineFormCustomSelect" name="filter"
 				required="true">
+				<option value="">Select</option>
 				<option value="Running">Running</option>
 				<option value="Discontinued">Discontinued</option>
 			</select>&nbsp;

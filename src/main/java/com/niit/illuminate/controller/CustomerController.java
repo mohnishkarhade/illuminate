@@ -1,6 +1,7 @@
 package com.niit.illuminate.controller;
 
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,22 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.niit.illuminatebe.model.BillingAddress;
+import com.niit.illuminatebe.model.Customer;
 import com.niit.illuminatebe.model.ShippingAddress;
-import com.niit.illuminatebe.model.Users;
-import com.niit.illuminatebe.service.UsersService;
+import com.niit.illuminatebe.service.CustomerService;
 
 @Controller
-public class UserController {
+public class CustomerController {
 
-	private final Logger logger = LoggerFactory.getLogger(UserController.class);
-
-	@Autowired
-	private Users users; //Creating users class instance objects
+	private final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
 	@Autowired
-	private UsersService usersService; //Creating usersService interface instance objects
+	private Customer customer;
 
-	@RequestMapping("/login") //Getting login page
+	@Autowired
+	private CustomerService customerService;
+
+	@RequestMapping("/login") // Getting login page
 	public String getLogin() {
 
 		logger.debug("Executing Login page...");
@@ -41,16 +42,17 @@ public class UserController {
 
 		ShippingAddress shippingAddress = new ShippingAddress();
 		BillingAddress billingAddress = new BillingAddress();
+		Customer customer = new Customer();
 
-		users.setShippingAddress(shippingAddress);
-		users.setBillingAddress(billingAddress);
-		model.addAttribute("users", users);
+		customer.setBillingAddress(billingAddress);
+		customer.setShippingAddress(shippingAddress);
+		model.addAttribute("customer", customer);
 		return "register";
 	}
 
-	//@PostMapping("/register")
+	// @PostMapping("/register")
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String saveUser(@ModelAttribute("users") Users users, BindingResult result, Model model) {
+	public String saveUser(@ModelAttribute("customer") Customer customer, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
 			logger.error("Binding Result has error");
@@ -58,32 +60,31 @@ public class UserController {
 			return "error";
 		}
 
-		List<Users> usersList = usersService.getAllUsers();
+		List<Customer> usersList = customerService.getAllCustomers();
 
 		try {
 			logger.info("Saving user...");
 			for (int i = 0; i < usersList.size(); i++) {
-				if (users.getEmail().equalsIgnoreCase(usersList.get(i).getEmail())) {
+				if (customer.getEmail().equalsIgnoreCase(usersList.get(i).getEmail())) {
 					model.addAttribute("emailError", "This email is already exists");
 					logger.error("Email is already exist");
 					return "register";
 				}
 
-				if (users.getUsername().equalsIgnoreCase(usersList.get(i).getUsername())) {
+				if (customer.getUsername().equalsIgnoreCase(usersList.get(i).getUsername())) {
 					model.addAttribute("usernameError", "This username is already exists");
 					logger.error("Username is already exists");
 					return "register";
 				}
 
-				if (users.getMobileno().equalsIgnoreCase(usersList.get(i).getMobileno())) {
+				if (customer.getMobileno().equalsIgnoreCase(usersList.get(i).getMobileno())) {
 					model.addAttribute("mobileError", "Mobile number is already exists");
 					logger.error("Mobile number is already exists");
 					return "register";
 				}
 			}
 
-			users.setEnabled(true);
-			boolean flag = usersService.save(users);
+			boolean flag = customerService.save(customer);
 
 			if (flag == true) {
 
@@ -104,5 +105,4 @@ public class UserController {
 		}
 
 	}
-
 }
