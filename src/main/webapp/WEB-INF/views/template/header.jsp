@@ -37,10 +37,31 @@
 					<li class="nav-item"><a class="nav-link"
 						href="<spring:url value="/" />">Home <span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="<spring:url value="/login" />">Login</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="<spring:url value="/register" />">Register</a></li>
+					<c:if test="${!isAdmin }">
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"> Categories </a>
+							<div class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item"
+									href="<c:url value="/admin/addCategory" />">Add Category</a> <a
+									class="dropdown-item" href="<c:url value="/admin/category" />">All
+									Category</a>
+							</div></li>
+					</c:if>
+					<c:if test="${loggedInUser }">
+						<li class="nav-item"><a class="nav-link"
+							href="<spring:url value="/profile" />"> ${userName } </a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<spring:url value="/logout" />">Logout</a></li>
+					</c:if>
+					<c:if test="${!loggedInUser }">
+						<li class="nav-item"><a class="nav-link"
+							href="<spring:url value="/login" />">Login</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<spring:url value="/register" />">Register</a></li>
+					</c:if>
 				</ul>
 				<form class="form-inline my-2 my-lg-0">
 					<div class="input-group">
@@ -55,56 +76,58 @@
 		</div>
 	</nav>
 
-	<nav class="navbar navbar-toggleable-md bg-primary navbar-inverse"
-		id="admin-navigation">
-		<div class="container">
-			<button class="navbar-toggler navbar-toggler-right" type="button"
-				data-toggle="collapse" data-target="#admin-navigation-menu"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<a class="navbar-brand" href="<spring:url value="/" />"><i
-				class="fa fa-user fa-lg"></i></a>
+	<c:if test="${isAdmin }">
+		<nav class="navbar navbar-toggleable-md bg-primary navbar-inverse"
+			id="admin-navigation">
+			<div class="container">
+				<button class="navbar-toggler navbar-toggler-right" type="button"
+					data-toggle="collapse" data-target="#admin-navigation-menu"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<a class="navbar-brand" href="<spring:url value="/" />"><i
+					class="fa fa-user fa-lg"></i></a>
 
-			<div class="collapse navbar-collapse" id="admin-navigation-menu">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a class="nav-link"
-						href="<spring:url value="/admin" />">Dashboard</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#"
-						id="navbarDropdownMenuLink" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> Category </a>
-						<div class="dropdown-menu"
-							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item"
-								href="<c:url value="/admin/addCategory" />">Add Category</a> <a
-								class="dropdown-item" href="<c:url value="/admin/category" />">All
-								Category</a>
-						</div></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#"
-						id="navbarDropdownMenuLink" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> Supplier </a>
-						<div class="dropdown-menu"
-							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item"
-								href="<c:url value="/admin/addSupplier" />">Add Supplier</a> <a
-								class="dropdown-item" href="<c:url value="/admin/supplier" />">All
-								Supplier</a>
-						</div></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#"
-						id="navbarDropdownMenuLink" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> Product </a>
-						<div class="dropdown-menu"
-							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item"
-								href="<c:url value="/admin/addProduct" />">Add Product</a> <a
-								class="dropdown-item" href="<c:url value="/admin/product" />">All
-								Products</a>
-						</div></li>
-				</ul>
+				<div class="collapse navbar-collapse" id="admin-navigation-menu">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item"><a class="nav-link"
+							href="<spring:url value="/admin" />">Dashboard</a></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"> Category </a>
+							<div class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item"
+									href="<c:url value="/admin/addCategory" />">Add Category</a> <a
+									class="dropdown-item" href="<c:url value="/admin/category" />">All
+									Category</a>
+							</div></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"> Supplier </a>
+							<div class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item"
+									href="<c:url value="/admin/addSupplier" />">Add Supplier</a> <a
+									class="dropdown-item" href="<c:url value="/admin/supplier" />">All
+									Supplier</a>
+							</div></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"> Product </a>
+							<div class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item"
+									href="<c:url value="/admin/addProduct" />">Add Product</a> <a
+									class="dropdown-item" href="<c:url value="/admin/product" />">All
+									Products</a>
+							</div></li>
+					</ul>
+				</div>
 			</div>
-		</div>
-	</nav>
+		</nav>
+	</c:if>

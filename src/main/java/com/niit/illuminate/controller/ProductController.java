@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -111,7 +112,7 @@ public class ProductController {
 		}
 	}
 
-	@RequestMapping(value = "/product", method = RequestMethod.POST)
+	@RequestMapping(value = "/product", method = RequestMethod.POST)	
 	public String filterProduct(@RequestParam("filter") String filter, Model model) {
 		try {
 			logger.info("Starting filterProduct method");

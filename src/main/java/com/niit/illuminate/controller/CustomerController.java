@@ -53,12 +53,14 @@ public class CustomerController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 
-		session.setAttribute("loggedInUser", username);
-		session.setAttribute("welcomeMsg", "WELCOME " + customerService.getUserByUserName(username).getName());
+		session.setAttribute("loggedInUser", true);
+		session.setAttribute("userName", customerService.getUserByUserName(username).getName());
 
-		if (request.isUserInRole("ROLE_ADMIN")) {
+		String role = customerService.getUserRole(username);
+
+		if (role.equals("ROLE_ADMIN")) {
 			session.setAttribute("isAdmin", true);
-			return "admin/dashboard";
+			return "redirect:/admin/dashboard";
 		} else {
 			session.setAttribute("isAdmin", false);
 			/*
@@ -90,6 +92,16 @@ public class CustomerController {
 		logger.debug("Ending of the method accessDenied");
 		return "error";
 
+	}
+
+	@RequestMapping("/logout")
+	public String logout(Model model) {
+		logger.info("Starting logout method");
+		session.invalidate();
+		session = null;
+		model.addAttribute("success", "You are successfully logged out.");
+		logger.info("Ending logout method");
+		return "login";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)

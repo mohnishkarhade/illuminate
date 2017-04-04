@@ -41,7 +41,7 @@ public class AdminController {
 	@Autowired
 	private ProductService productService;
 
-	@RequestMapping("")
+	@RequestMapping(value = { "", "/dashboard" })
 	public String dashboard() {
 		logger.info("Starting dashboard method");
 
@@ -59,7 +59,7 @@ public class AdminController {
 		return "admin/category";
 	}
 
-	@RequestMapping("/product")
+	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	public String product(Model model) {
 		logger.info("Starting (manage) product method");
 		model.addAttribute("product", product);

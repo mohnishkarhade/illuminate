@@ -8,9 +8,9 @@
 	<h2 class="heading-one">Manage Product</h2>
 
 	<div class="filter pull-right">
-		<form class="form-inline" action="<c:url value="/admin/product" />"
-			method="post">
-			<label class="mr-sm-2" for="inlineFormCustomSelect">Filter:</label> <select
+		<form class="form-inline" action="<c:url value="/admin/product?filter" />"
+			method="POST">
+			<label for="inlineFormCustomSelect">Filter:</label> <select
 				class="custom-select" id="inlineFormCustomSelect" name="filter"
 				required="true">
 				<option value="">Select</option>
