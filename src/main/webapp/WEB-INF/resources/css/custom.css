@@ -32,3 +32,13 @@ label.error {
 	border-left: solid 5px #025AA5;
 	color: #025AA5;
 }
+
+#notification {
+	margin-left: 0;
+	position: fixed;
+	z-index: 9;
+	left: 35%;
+	top: 40px;
+	padding-bottom: 0;
+	padding-top: 20px;
+}

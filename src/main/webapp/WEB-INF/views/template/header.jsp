@@ -38,16 +38,19 @@
 						href="<spring:url value="/" />">Home <span class="sr-only">(current)</span>
 					</a></li>
 					<c:if test="${!isAdmin }">
+						<li class="nav-item"><a class="nav-link"
+							href="<spring:url value="/allProducts" />">All Products <span class="sr-only">(current)</span>
+						</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarDropdownMenuLink" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false"> Categories </a>
 							<div class="dropdown-menu"
 								aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item"
-									href="<c:url value="/admin/addCategory" />">Add Category</a> <a
-									class="dropdown-item" href="<c:url value="/admin/category" />">All
-									Category</a>
+								<c:forEach items="${categoryList }" var="category">
+									<a class="dropdown-item"
+										href="<c:url value="/getProductByCategory/${category.id }" />">${category.name }</a>
+								</c:forEach>
 							</div></li>
 					</c:if>
 					<c:if test="${loggedInUser }">

@@ -11,22 +11,40 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.niit.illuminatebe.model.BillingAddress;
 import com.niit.illuminatebe.model.Customer;
+import com.niit.illuminatebe.model.Product;
 import com.niit.illuminatebe.model.ShippingAddress;
+import com.niit.illuminatebe.service.CategoryService;
 import com.niit.illuminatebe.service.CustomerService;
+import com.niit.illuminatebe.service.ProductService;
+import com.niit.illuminatebe.service.SupplierService;
 
 @Controller
 public class CustomerController {
 
 	private final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+
+	@Autowired
+	private Product product;
+
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private CategoryService categoryService;
+
+	@Autowired
+	private SupplierService supplierService;
 
 	@Autowired
 	private Customer customer;
@@ -71,7 +89,7 @@ public class CustomerController {
 			 * mycartDAO.getTotalAmount(userID));
 			 */
 			logger.info("Ending of the method validate");
-			return "index";
+			return "redirect:/";
 
 		}
 	}
@@ -95,13 +113,20 @@ public class CustomerController {
 	}
 
 	@RequestMapping("/logout")
-	public String logout(Model model) {
+	public String logout(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirect) {
 		logger.info("Starting logout method");
-		session.invalidate();
-		session = null;
-		model.addAttribute("success", "You are successfully logged out.");
+
+		// Invalidates http sessions, then unbinds any objects bound it.
+		// Removes Authentication from the security context
+		// Explicitly clears the context value from the current thread.
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+
+		redirect.addFlashAttribute("success", "You are successfully logged out.");
 		logger.info("Ending logout method");
-		return "login";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)

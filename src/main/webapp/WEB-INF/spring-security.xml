@@ -36,9 +36,10 @@ http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
 		<!-- You might have added some properties to HTTPSeession object at the 
 			time of login, You have to remove OR invalidate -->
-		<security:logout logout-url="/logout" />
+		<security:logout logout-url="/logout"
+			invalidate-session="true" />
 
-	</security:http>	
+	</security:http>
 
 	<!-- dataSource must be same as in ApplicationContextConfig -->
 	<security:authentication-manager>

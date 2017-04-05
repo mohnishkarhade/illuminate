@@ -18,12 +18,12 @@
 				</c:if>
 				<c:if test="${not empty error}">
 					<div class="alert alert-danger" role="alert">
-						<strong>Success!</strong> ${error }
+						<strong>Error!</strong> ${error }
 					</div>
 				</c:if>
 				<form class="form-signin"
-					action="<c:url value="j_spring_security_check" />"
-					method="POST" name="loginForm">
+					action="<c:url value="j_spring_security_check" />" method="POST"
+					name="loginForm">
 
 					<label for="Username" class="sr-only">Username</label> <input
 						type="text" name="username" id="Username" class="form-control"

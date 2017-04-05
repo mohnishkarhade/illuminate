@@ -112,7 +112,7 @@ public class ProductController {
 		}
 	}
 
-	@RequestMapping(value = "/product", method = RequestMethod.POST)	
+	@RequestMapping(value = "/product", method = RequestMethod.POST)
 	public String filterProduct(@RequestParam("filter") String filter, Model model) {
 		try {
 			logger.info("Starting filterProduct method");
@@ -174,6 +174,6 @@ public class ProductController {
 			model.addAttribute("catchError", "Server is not responding please try again letter.\n" + e);
 			return "error";
 		}
-	}
+	}	
 
 }
