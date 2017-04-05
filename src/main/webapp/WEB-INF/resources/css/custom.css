@@ -42,3 +42,30 @@ label.error {
 	padding-bottom: 0;
 	padding-top: 20px;
 }
+
+.thumbnail img {
+	width: 100%;
+	height: 250px;
+	object-fit: cover;
+	border-bottom: solid 1px #efefef;
+	padding-bottom: 5px;
+}
+
+.caption {
+	overflow: hidden;
+	padding-top: 8px;
+}
+
+.caption h4 {
+	white-space: nowrap;
+}
+
+.thumbnail {
+	padding: 10px;
+	border: solid 1px #efefef;
+}
+
+.thumbnail .caption-full {
+	padding: 9px;
+	color: #333;
+}

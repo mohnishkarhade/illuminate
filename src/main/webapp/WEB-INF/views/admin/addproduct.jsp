@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	isELIgnored="false" pageEncoding="ISO-8859-1"%>
 <%@include file="/WEB-INF/views/template/header.jsp"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -26,9 +28,11 @@
 	</c:if>
 
 
-	<spring:url value="/admin/addProduct" var="addProduct"></spring:url>
-	<form:form action="${addProduct }" method="post" commandName="product"
-		enctype="multipart/form-data" id="product-form" >
+	<spring:url
+		value="/admin/addProduct?${_csrf.parameterName}=${_csrf.token}"
+		var="addProduct"></spring:url>
+	<form:form action="${addProduct }" method="POST" commandName="product"
+		enctype="multipart/form-data" id="product-form">
 		<div class="form-group">
 			<form:label path="name">Product Name:</form:label>
 			<form:input path="name" class="form-control"></form:input>
@@ -59,9 +63,10 @@
 		</div>
 		<div class="form-group">
 			<form:label path="file">Upload Image</form:label>
-			<form:input path="file" type="file" class="form-control input-sm" />			
+			<form:input path="file" type="file" class="form-control input-sm" />
 		</div>
-
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
 		<input type="submit" class="btn btn-success" value="Add Product">
 		<input type="reset" class="btn btn-secondary" value="Reset">
 	</form:form>

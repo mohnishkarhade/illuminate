@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.niit.illuminate.util.FileUtil;
@@ -63,8 +66,8 @@ public class ProductController {
 		return "admin/addproduct";
 	}
 
-	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-	public String addProduct(@ModelAttribute("product") Product product, @RequestParam("file") MultipartFile file,
+	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)	
+	public String addProductPost(@ModelAttribute("product") Product product, @RequestParam("file") MultipartFile file,
 			BindingResult result, Model model, HttpServletRequest request) {
 		if (result.hasErrors()) {
 			logger.error("Binding Result has error");
@@ -174,6 +177,6 @@ public class ProductController {
 			model.addAttribute("catchError", "Server is not responding please try again letter.\n" + e);
 			return "error";
 		}
-	}	
+	}
 
 }

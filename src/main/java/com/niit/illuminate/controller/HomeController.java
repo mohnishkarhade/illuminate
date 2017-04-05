@@ -52,7 +52,7 @@ public class HomeController {
 	public String getProductList(Model model) {
 		logger.info("Starting get Product list method");
 		model.addAttribute("product", product);
-		List<Product> productList = productService.getAllProducts();
+		List<Product> productList = productService.viewByStatus("Running");
 		model.addAttribute("productList", productList);
 		logger.info("Ending get Product list  method");
 		return "/productList";
