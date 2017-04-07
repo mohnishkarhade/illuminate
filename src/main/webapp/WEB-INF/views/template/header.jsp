@@ -55,7 +55,7 @@
 					</c:if>
 					<c:if test="${loggedInUser }">
 						<li class="nav-item"><a class="nav-link"
-							href="<spring:url value="/profile" />"> ${userName } </a></li>
+							href="<spring:url value="/profile" />"> ${loggedInName } </a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="<spring:url value="/logout" />">Logout</a></li>
 					</c:if>

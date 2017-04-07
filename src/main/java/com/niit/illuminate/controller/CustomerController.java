@@ -72,7 +72,8 @@ public class CustomerController {
 		String username = auth.getName();
 
 		session.setAttribute("loggedInUser", true);
-		session.setAttribute("userName", customerService.getUserByUserName(username).getName());
+		session.setAttribute("loggedInUsername", customerService.getUserByUserName(username));
+		session.setAttribute("loggedInName", customerService.getUserByUserName(username).getName());
 
 		String role = customerService.getUserRole(username);
 
