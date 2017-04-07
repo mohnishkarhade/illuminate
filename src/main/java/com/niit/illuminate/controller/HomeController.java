@@ -48,6 +48,22 @@ public class HomeController {
 		return "index";
 	}
 
+	@RequestMapping("/getProductByCategory/{id}")
+	public String getProductsByCategory(@PathVariable("id") int id, Model model) {
+		try {
+			logger.info("Starting filterProduct method");
+			List<Product> productList = productService.getProductListByCategory(id);
+			model.addAttribute("productList", productList);
+			logger.info("Ending filterProduct method");
+			return "productList";
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.\n" + e);
+			return "error";
+		}
+	}
+
 	@RequestMapping("/allProducts")
 	public String getProductList(Model model) {
 		logger.info("Starting get Product list method");
@@ -58,14 +74,14 @@ public class HomeController {
 		return "/productList";
 	}
 
-	@RequestMapping("/getProductByCategory/{id}")
-	public String getProductsByCategory(@PathVariable("id") int id, Model model) {
+	@RequestMapping("/product/productDetail/{id}")
+	public String getProductDetail(@PathVariable("id") int id, Model model) {
+		logger.info("Starting getProductDetail method");
 		try {
-			logger.info("Starting filterProduct method");
-			List<Product> productList = productService.getProductListByCategory(id);
-			model.addAttribute("productList", productList);
-			logger.info("Ending filterProduct method");
-			return "productList";
+			Product product = new Product();
+			product = productService.getProductByID(id);
+			model.addAttribute("product", product);
+			return "productdetail";
 		} catch (Exception e) {
 			// TODO: handle exception
 			logger.error("Exception occured " + e);

@@ -66,7 +66,7 @@ public class ProductController {
 		return "admin/addproduct";
 	}
 
-	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)	
+	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
 	public String addProductPost(@ModelAttribute("product") Product product, @RequestParam("file") MultipartFile file,
 			BindingResult result, Model model, HttpServletRequest request) {
 		if (result.hasErrors()) {

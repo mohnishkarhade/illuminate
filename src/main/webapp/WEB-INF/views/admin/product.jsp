@@ -8,7 +8,7 @@
 	<h2 class="heading-one">Manage Product</h2>
 
 	<div class="filter pull-right">
-		<form class="form-inline" action="<c:url value="/admin/product?filter" />"
+		<form class="form-inline" action="<c:url value="/admin/product?${_csrf.parameterName}=${_csrf.token}" />"
 			method="POST">
 			<label for="inlineFormCustomSelect">Filter:</label> <select
 				class="custom-select" id="inlineFormCustomSelect" name="filter"
@@ -42,7 +42,7 @@
 				<th>Category</th>
 				<th>Supplier</th>
 				<th>Status</th>
-				<th>Actions</th>
+				<th width="145">Actions</th>
 			</tr>
 
 			<c:forEach items="${productList}" var="product">

@@ -20,7 +20,7 @@
 				<th>Supplier Name</th>
 				<th>Address</th>
 				<th>Status</th>
-				<th>Actions</th>
+				<th width="135">Actions</th>
 			</tr>
 			<c:forEach items="${supplierList}" var="supplier">
 				<tr>

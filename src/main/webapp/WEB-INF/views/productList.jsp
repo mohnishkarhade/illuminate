@@ -34,7 +34,8 @@
 								</b>${product.supplier.name }
 							</p>
 							<h4 class="text-success pull-right">Rs ${product.price }</h4>
-							<a href="#" class="btn btn-primary">View Details</a>
+							<a href="<c:url value="/product/productDetail/${product.id }" />"
+								class="btn btn-primary">View Details</a>
 						</div>
 					</div>
 				</div>

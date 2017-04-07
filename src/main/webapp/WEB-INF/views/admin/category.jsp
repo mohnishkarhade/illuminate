@@ -20,7 +20,7 @@
 				<th>Category Name</th>
 				<th>Category Description</th>
 				<th>Status</th>
-				<th>Actions</th>
+				<th width="135">Actions</th>
 			</tr>
 			<c:forEach items="${categoryList}" var="category">
 				<tr>
