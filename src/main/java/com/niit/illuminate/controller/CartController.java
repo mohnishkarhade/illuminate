@@ -51,6 +51,17 @@ public class CartController {
 	@Autowired
 	private CustomerService customerService;
 
+	@RequestMapping("/all")
+	public String getCart() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+		String loggedInUsername = username;
+		session.setAttribute("numberProducts", cartService.getNumberOfProducts(loggedInUsername));
+		session.setAttribute("cartList", cartService.getCartList(loggedInUsername));
+		session.setAttribute("totalAmount", cartService.getTotalAmount(loggedInUsername));
+		return "cart";
+	}
+
 	@RequestMapping(value = "/addToCart/{id}", method = RequestMethod.POST)
 	public String addToCart(@PathVariable("id") int id, RedirectAttributes redirect, Model model) {
 		logger.info("Starting addtocart method");
@@ -66,8 +77,6 @@ public class CartController {
 
 				Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 				String username = auth.getName();
-				// Customer customer =
-				// customerService.getUserByCustomerName(username);
 				loggedInUsername = username;
 
 			}
@@ -83,6 +92,7 @@ public class CartController {
 				if (flag) {
 
 					redirect.addFlashAttribute("success", product.getName() + " " + "Successfully added to cart!");
+					session.setAttribute("numberProducts", cartService.getNumberOfProducts(loggedInUsername));
 					return "redirect:/allProducts";
 
 				} else {
@@ -96,6 +106,7 @@ public class CartController {
 				if (flag) {
 
 					redirect.addFlashAttribute("success", product.getName() + " " + "Successfully added to cart!");
+					session.setAttribute("numberProducts", cartService.getNumberOfProducts(loggedInUsername));
 					return "redirect:/allProducts";
 
 				} else {

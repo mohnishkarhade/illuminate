@@ -39,7 +39,8 @@
 					</a></li>
 					<c:if test="${!isAdmin }">
 						<li class="nav-item"><a class="nav-link"
-							href="<spring:url value="/allProducts" />">All Products <span class="sr-only">(current)</span>
+							href="<spring:url value="/allProducts" />">All Products <span
+								class="sr-only">(current)</span>
 						</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
@@ -58,6 +59,9 @@
 							href="<spring:url value="/profile" />"> ${loggedInName } </a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="<spring:url value="/logout" />">Logout</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<spring:url value="/myCart/all" />">Cart <span
+								class="badge badge-pill badge-primary">${numberProducts }</span></a></li>
 					</c:if>
 					<c:if test="${!loggedInUser }">
 						<li class="nav-item"><a class="nav-link"

@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.niit.illuminatebe.model.BillingAddress;
+import com.niit.illuminatebe.model.Cart;
 import com.niit.illuminatebe.model.Customer;
 import com.niit.illuminatebe.model.Product;
 import com.niit.illuminatebe.model.ShippingAddress;
+import com.niit.illuminatebe.service.CartService;
 import com.niit.illuminatebe.service.CategoryService;
 import com.niit.illuminatebe.service.CustomerService;
 import com.niit.illuminatebe.service.ProductService;
@@ -51,6 +53,9 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
+
+	@Autowired
+	private CartService cartService;
 
 	@Autowired
 	private HttpSession session;
@@ -89,6 +94,9 @@ public class CustomerController {
 			 * mycartList.size()); mv.addObject("totalAmount",
 			 * mycartDAO.getTotalAmount(userID));
 			 */
+			Cart cart = new Cart();
+			session.setAttribute("cartList", cartService.getCartList(username));
+			session.setAttribute("numberProducts", cartService.getNumberOfProducts(username));
 			logger.info("Ending of the method validate");
 			return "redirect:/";
 
