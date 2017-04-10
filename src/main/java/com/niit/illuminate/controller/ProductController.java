@@ -85,9 +85,7 @@ public class ProductController {
 					return "admin/addproduct";
 				}
 			}
-			Set<Product> productSet = new HashSet<Product>();
-			productSet.add(product);
-			category.setProducts(productSet);
+
 			product.setStatus("Running");
 			boolean flag = productService.save(product);
 			file = product.getFile();

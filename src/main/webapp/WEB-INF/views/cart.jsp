@@ -35,8 +35,11 @@
 		<hr>
 		<div class="pull-right">
 			Total Amount: <em><b class="text-success">Rs ${totalAmount }</b></em>
-			&nbsp; <a href="#" class="btn btn-outline-primary">Checkout</a>
+			&nbsp; <a href="<c:url value="/order" /> "
+				class="btn btn-outline-primary">Checkout</a>
 		</div>
+		<a href="<c:url value="/myCart/clearCart" />"
+			class="btn btn-outline-danger">Clear Cart</a>
 	</c:if>
 </div>
 <%@include file="/WEB-INF/views/template/footer.jsp"%>

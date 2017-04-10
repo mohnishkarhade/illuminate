@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.niit.illuminatebe.model.Cart;
 import com.niit.illuminatebe.model.Customer;
 import com.niit.illuminatebe.model.Product;
-import com.niit.illuminatebe.model.Users;
 import com.niit.illuminatebe.service.CartService;
 import com.niit.illuminatebe.service.CustomerService;
 import com.niit.illuminatebe.service.ProductService;
@@ -43,13 +42,10 @@ public class CartController {
 	private ProductService productService;
 
 	@Autowired
-	private HttpSession session;
-
-	@Autowired
-	private Customer customer;
-
-	@Autowired
 	private CustomerService customerService;
+
+	@Autowired
+	private HttpSession session;
 
 	@RequestMapping("/all")
 	public String getCart() {
@@ -68,6 +64,7 @@ public class CartController {
 		try {
 			Cart cart = new Cart();
 			Product product = productService.getProductByID(id);
+
 			cart.setProductName(product.getName());
 			cart.setPrice(product.getPrice());
 			cart.setDateAdded(new Date());
@@ -82,6 +79,8 @@ public class CartController {
 			}
 			cart.setUsername(loggedInUsername);
 			cart.setStatus("NEW");
+			Customer customer = customerService.getUserByUserName(loggedInUsername);
+			cart.setCustomer_id(customer.getId());
 			Cart existCart = cartService.getCartByUsername(loggedInUsername, cart.getProductName());
 			if (existCart != null) {
 				int currentQuantity = cartService.getQuantity(loggedInUsername, cart.getProductName());
@@ -124,7 +123,7 @@ public class CartController {
 	}
 
 	@RequestMapping("/deleteItem/{id}")
-	public String deleteCartItem(@PathVariable("id") int id, Model model) {
+	public String deleteCartItem(@PathVariable("id") int id, Model model, RedirectAttributes redirect) {
 		logger.info("Starting deleteCartItem method");
 		try {
 			Cart cart = cartService.getCartById(id);
@@ -137,15 +136,39 @@ public class CartController {
 			if (checkQ > 1) {
 				cart.setQuantity(checkQ - 1);
 				cartService.update(cart);
-				model.addAttribute("success", "Cart updated successfully.");
-				return "cart";
+				redirect.addFlashAttribute("success", "Cart updated successfully.");
+				return "redirect:/myCart/all";
 			} else {
 				cart.setStatus("OLD");
 				cartService.update(cart);
-				model.addAttribute("success", "Item removed successfully.");
-				return "cart";
+				redirect.addFlashAttribute("success", "Item removed successfully.");
+				return "redirect:/myCart/all";
 			}
 		} catch (Exception e) {
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
+	}
+
+	@RequestMapping("/clearCart")
+	public String clearCart(RedirectAttributes redirect, Model model) {
+		logger.info("Starting clearCart method");
+		try {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			String username = auth.getName();
+			int flag = cartService.clearCart(username);
+
+			if (flag > 1) {
+				redirect.addFlashAttribute("success", "All Items removed successfully.");
+				return "redirect:/myCart/all";
+			} else {
+				redirect.addFlashAttribute("error", "Failed to clear cart!");
+				return "redirect:/myCart/All";
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
 			logger.error("Exception occured " + e);
 			model.addAttribute("catchError", "Server is not responding please try again letter.");
 			return "error";
