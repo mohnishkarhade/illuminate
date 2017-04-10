@@ -123,4 +123,33 @@ public class CartController {
 		}
 	}
 
+	@RequestMapping("/deleteItem/{id}")
+	public String deleteCartItem(@PathVariable("id") int id, Model model) {
+		logger.info("Starting deleteCartItem method");
+		try {
+			Cart cart = cartService.getCartById(id);
+
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			String username = auth.getName();
+
+			int checkQ = cartService.getQuantity(username, cart.getProductName());
+
+			if (checkQ > 1) {
+				cart.setQuantity(checkQ - 1);
+				cartService.update(cart);
+				model.addAttribute("success", "Cart updated successfully.");
+				return "cart";
+			} else {
+				cart.setStatus("OLD");
+				cartService.update(cart);
+				model.addAttribute("success", "Item removed successfully.");
+				return "cart";
+			}
+		} catch (Exception e) {
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
+	}
+
 }
