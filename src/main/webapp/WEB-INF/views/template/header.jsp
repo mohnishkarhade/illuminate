@@ -133,6 +133,11 @@
 									class="dropdown-item" href="<c:url value="/admin/product" />">All
 									Products</a>
 							</div></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<spring:url value="/admin/customer" />">Customer</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<spring:url value="/admin/order" />">Order</a></li>
+
 					</ul>
 				</div>
 			</div>
