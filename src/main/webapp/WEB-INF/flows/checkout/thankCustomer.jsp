@@ -15,7 +15,7 @@
 
         <section class="container">
             <p>
-                <a href="<spring:url value="/" />" class="btn btn-default">OK</a>
+                <a href="<spring:url value="/" />" class="btn btn-primary"><i class="fa fa-thumbs-up"></i> OK</a>
             </p>
         </section>
 

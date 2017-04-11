@@ -17,7 +17,7 @@ http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 		<security:intercept-url pattern="/myCart/**"
 			access="hasRole('ROLE_USER')" />
 
-		<security:intercept-url pattern="/cart_checkout**"
+		<security:intercept-url pattern="/checkout**"
 			access="hasRole('ROLE_USER')" />
 
 		<!-- Be-default spring provide login page. the user name text field is 

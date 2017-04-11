@@ -30,18 +30,18 @@ public class CheckoutController {
 
 	@RequestMapping("/order")
 	public String createOrder() {
-		CustomerOrder customerOrder = new CustomerOrder();
+//		CustomerOrder customerOrder = new CustomerOrder();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		String loggedInUsername = username;
 
 		Customer customer = customerService.getUserByUserName(loggedInUsername);
-		customerOrder.setCustomer(customer);
-		customerOrder.setBillingAddress(customer.getBillingAddress());
-		customerOrder.setShippingAddress(customer.getShippingAddress());
-
-		customerOrderService.addCustomerOrder(customerOrder);
+//		customerOrder.setCustomer(customer);
+//		customerOrder.setBillingAddress(customer.getBillingAddress());
+//		customerOrder.setShippingAddress(customer.getShippingAddress());
+//
+//		customerOrderService.addCustomerOrder(customerOrder);
 
 		return "redirect:/checkout?userId=" + customer.getId();
 	}

@@ -139,8 +139,8 @@ public class CartController {
 				redirect.addFlashAttribute("success", "Cart updated successfully.");
 				return "redirect:/myCart/all";
 			} else {
-				cart.setStatus("OLD");
-				cartService.update(cart);
+				// cart.setStatus("OLD");
+				cartService.delete(id);
 				redirect.addFlashAttribute("success", "Item removed successfully.");
 				return "redirect:/myCart/all";
 			}
@@ -159,12 +159,12 @@ public class CartController {
 			String username = auth.getName();
 			int flag = cartService.clearCart(username);
 
-			if (flag > 1) {
+			if (flag >= 1) {
 				redirect.addFlashAttribute("success", "All Items removed successfully.");
 				return "redirect:/myCart/all";
 			} else {
 				redirect.addFlashAttribute("error", "Failed to clear cart!");
-				return "redirect:/myCart/All";
+				return "redirect:/myCart/all";
 			}
 
 		} catch (Exception e) {

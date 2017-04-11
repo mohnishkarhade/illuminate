@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow 
 	http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
 
-	<var name="order" class="com.niit.illuminatebe.model.CustomerOrder" />	
+	<var name="order" class="com.niit.illuminatebe.model.CustomerOrder" />
 
 	<action-state id="addCartToOrder">
 		<evaluate expression="customerService.getUserById(requestParameters.userId)"
@@ -30,8 +30,11 @@
 	</view-state>
 
 	<action-state id="processOrder">
-		<evaluate expression="cartService.clearCart(order.customer.getUsername())" />
-		<transition to="thankCustomer" />
+		<evaluate expression="customerOrderService.addCustomerOrder(order)" />
+		<evaluate expression="cartService.clearCart(order.customer.getUsername())">
+			<attribute name="name" value="last"></attribute>
+		</evaluate>
+		<transition on="last.success" to="thankCustomer" />
 	</action-state>
 
 	<view-state id="thankCustomer" model="order">

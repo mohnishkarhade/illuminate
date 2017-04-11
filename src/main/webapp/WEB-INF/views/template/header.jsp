@@ -45,7 +45,7 @@
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarDropdownMenuLink" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false"> Categories </a>
+							aria-haspopup="true" aria-expanded="false">By Categories </a>
 							<div class="dropdown-menu"
 								aria-labelledby="navbarDropdownMenuLink">
 								<c:forEach items="${categoryList }" var="category">

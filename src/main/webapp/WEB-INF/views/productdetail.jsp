@@ -24,8 +24,7 @@
 						class="rounded float-left img-fluid" />
 				</div>
 			</div>
-			<div class="col-sm-6">
-				<div class="space"></div>
+			<div class="col-sm-6">				
 				<div class="card">
 					<div class="card-header">Product Details</div>
 					<div class="card-block">
