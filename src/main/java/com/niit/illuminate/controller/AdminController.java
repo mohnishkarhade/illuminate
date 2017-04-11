@@ -2,6 +2,8 @@ package com.niit.illuminate.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import com.niit.illuminatebe.model.Category;
 import com.niit.illuminatebe.model.Product;
 import com.niit.illuminatebe.model.Supplier;
 import com.niit.illuminatebe.service.CategoryService;
+import com.niit.illuminatebe.service.CustomerOrderService;
+import com.niit.illuminatebe.service.CustomerService;
 import com.niit.illuminatebe.service.ProductService;
 import com.niit.illuminatebe.service.SupplierService;
 
@@ -40,11 +44,24 @@ public class AdminController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private CustomerService customerService;
+	
+	@Autowired
+	private CustomerOrderService customerOrderService;
+
+	@Autowired
+	private HttpSession session;
 
 	@RequestMapping(value = { "", "/dashboard" })
 	public String dashboard() {
 		logger.info("Starting dashboard method");
-
+		session.setAttribute("products", productService.getAllProducts().size());
+		session.setAttribute("categories", categoryService.getAllCategories().size());
+		session.setAttribute("suppliers", supplierService.getAllSuppliers().size());
+		session.setAttribute("customers", customerService.getAllCustomers().size());
+		
 		logger.info("Ending dashboard method");
 		return "admin/dashboard";
 	}
