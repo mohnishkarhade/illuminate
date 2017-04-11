@@ -58,17 +58,19 @@ public class ProductController {
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
 	public String addProduct(Model model) {
-		logger.info("starting addProductView get method");
+		logger.info("starting addProduct(GET) get method in ProductController");
 		product = new Product();
 		model.addAttribute("categoryList", categoryService.getAllCategories());
 		model.addAttribute("supplierList", supplierService.getAllSuppliers());
 		model.addAttribute("product", product);
+		
 		return "admin/addproduct";
 	}
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
 	public String addProductPost(@ModelAttribute("product") Product product, @RequestParam("file") MultipartFile file,
 			BindingResult result, Model model, HttpServletRequest request) {
+		logger.info("Starting addProduct(POST) method in ProductController");
 		if (result.hasErrors()) {
 			logger.error("Binding Result has error");
 			model.addAttribute("error", "Binding Result has error");
@@ -86,8 +88,10 @@ public class ProductController {
 				}
 			}
 
+			logger.info("Saving product...");
 			product.setStatus("Running");
 			boolean flag = productService.save(product);
+			logger.info("Uploading product image");
 			file = product.getFile();
 			String path = request.getServletContext().getRealPath("/WEB-INF/resources/images/");
 
@@ -120,7 +124,7 @@ public class ProductController {
 			model.addAttribute("product", product);
 			List<Product> productList = productService.viewByStatus(filter);
 			model.addAttribute("productList", productList);
-			logger.info("Ending filterProduct method");
+			
 			return "admin/product";
 		} catch (Exception e) {
 			// TODO: handle exception

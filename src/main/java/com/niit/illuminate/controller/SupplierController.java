@@ -30,7 +30,7 @@ public class SupplierController {
 
 	@RequestMapping(value = "/addSupplier", method = RequestMethod.GET)
 	public String addSupplier(Model model) {
-		logger.info("starting addSupplier get method");
+		logger.info("starting addSupplier(GET) get method");
 		Supplier supplier = new Supplier();
 		model.addAttribute("supplier", supplier);
 		return "admin/addsupplier";
@@ -39,7 +39,7 @@ public class SupplierController {
 	@RequestMapping(value = "/addSupplier", method = RequestMethod.POST)
 	public String addSupplierPost(@ModelAttribute("supplier") Supplier supplier, BindingResult result, Model model) {
 
-		logger.info("Starting addSupplier method");
+		logger.info("Starting addSupplier(POST) method");
 		if (result.hasErrors()) {
 			model.addAttribute("error", "Binding result has error.");
 			return "error";
@@ -100,7 +100,7 @@ public class SupplierController {
 
 	@RequestMapping(value = "/editSupplier/{id}", method = RequestMethod.GET)
 	public String editSupplier(@PathVariable("id") int id, Model model) {
-		logger.info("Starting editSupplier get method");
+		logger.info("Starting editSupplier(GET) method");
 		try {
 			supplier = supplierService.getSupplierById(id);
 			model.addAttribute("supplier", supplier);
@@ -115,7 +115,7 @@ public class SupplierController {
 
 	@RequestMapping(value = "/editSupplier", method = RequestMethod.POST)
 	public String editSupplierPost(@ModelAttribute("supplier") Supplier supplier, BindingResult result, Model model) {
-		logger.info("Starting editSupplier post method");
+		logger.info("Starting editSupplier(POST) method");
 		if (result.hasErrors()) {
 			return "error";
 		}

@@ -70,7 +70,7 @@ public class CustomerController {
 
 	@RequestMapping(value = "/validate", method = RequestMethod.POST)
 	public String validate(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		logger.info("starting of the method validate");
+		logger.info("starting of the method validate in CustomerController");
 
 		session = request.getSession(true);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -97,7 +97,7 @@ public class CustomerController {
 			Cart cart = new Cart();
 			session.setAttribute("cartList", cartService.getCartList(username));
 			session.setAttribute("numberProducts", cartService.getNumberOfProducts(username));
-			logger.info("Ending of the method validate");
+			
 			return "redirect:/";
 
 		}
@@ -107,7 +107,7 @@ public class CustomerController {
 	public String loginError(Model model) {
 		logger.info("Starting of the method loginError");
 		model.addAttribute("error", "Invalid Credentials.  Please try again.");
-		logger.info("Ending of the method loginError");
+		
 		return "login";
 	}
 
@@ -115,15 +115,14 @@ public class CustomerController {
 	public String accessDenied(Model model) {
 		logger.debug("Starting of the method accessDenied");
 		model.addAttribute("error", "You are not authorized to access this page");
-
-		logger.debug("Ending of the method accessDenied");
+		
 		return "error";
 
 	}
 
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirect) {
-		logger.info("Starting logout method");
+		logger.info("Starting logout method in CustomerController");
 
 		// Invalidates http sessions, then unbinds any objects bound it.
 		// Removes Authentication from the security context
@@ -134,7 +133,7 @@ public class CustomerController {
 		}
 
 		redirect.addFlashAttribute("success", "You are successfully logged out.");
-		logger.info("Ending logout method");
+		
 		return "redirect:/";
 	}
 
@@ -155,7 +154,7 @@ public class CustomerController {
 	// @PostMapping("/register")
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String saveUser(@ModelAttribute("customer") Customer customer, BindingResult result, Model model) {
-
+		logger.info("Starting saveUser method in CustomerController");
 		if (result.hasErrors()) {
 			logger.error("Binding Result has error");
 			model.addAttribute("error", "Binding Result has error");

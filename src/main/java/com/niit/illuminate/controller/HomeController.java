@@ -51,10 +51,10 @@ public class HomeController {
 	@RequestMapping("/getProductByCategory/{id}")
 	public String getProductsByCategory(@PathVariable("id") int id, Model model) {
 		try {
-			logger.info("Starting filterProduct method");
+			logger.info("Starting getProductsByCategory method in HomeController");
 			List<Product> productList = productService.getProductListByCategory(id);
 			model.addAttribute("productList", productList);
-			logger.info("Ending filterProduct method");
+
 			return "productList";
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -66,21 +66,22 @@ public class HomeController {
 
 	@RequestMapping("/allProducts")
 	public String getProductList(Model model) {
-		logger.info("Starting get Product list method");
+		logger.info("Starting get Product list method in HomeController");
 		model.addAttribute("product", product);
 		List<Product> productList = productService.viewByStatus("Running");
 		model.addAttribute("productList", productList);
-		logger.info("Ending get Product list  method");
+
 		return "/productList";
 	}
 
 	@RequestMapping("/product/productDetail/{id}")
 	public String getProductDetail(@PathVariable("id") int id, Model model) {
-		logger.info("Starting getProductDetail method");
+		logger.info("Starting getProductDetail method in HomeController");
 		try {
 			Product product = new Product();
 			product = productService.getProductByID(id);
 			model.addAttribute("product", product);
+
 			return "productdetail";
 		} catch (Exception e) {
 			// TODO: handle exception

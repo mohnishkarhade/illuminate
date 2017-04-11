@@ -30,6 +30,7 @@ public class CategoryController {
 
 	@RequestMapping(value = "/addCategory", method = RequestMethod.GET)
 	public String addCategory(Model model) {
+		logger.info("Starting addCategory(GET) method in CategoryController");
 		category = new Category();
 		model.addAttribute("category", category);
 		return "admin/addcategory";
@@ -38,7 +39,7 @@ public class CategoryController {
 	@RequestMapping(value = "/addCategory", method = RequestMethod.POST)
 	public String addCategoryPost(@ModelAttribute("category") Category category, BindingResult result, Model model) {
 
-		logger.info("Starting addCategory method");
+		logger.info("Starting addCategory(POST) method in CategoryController");
 		if (result.hasErrors()) {
 			return "error";
 		}
@@ -75,7 +76,7 @@ public class CategoryController {
 
 	@RequestMapping("/deleteCategory/{id}")
 	public String deleteCategory(@PathVariable("id") int id, Model model) {
-		logger.info("Starting deleteCategory method");
+		logger.info("Starting deleteCategory method in CategoryController");
 		try {
 			logger.info("Deleting category...");
 			boolean flag = categoryService.delete(id);
@@ -98,7 +99,7 @@ public class CategoryController {
 
 	@RequestMapping(value = "/editCategory/{id}", method = RequestMethod.GET)
 	public String editCategory(@PathVariable("id") int id, Model model) {
-		logger.info("Starting editCategory get method");
+		logger.info("Starting editCategory(GET) method in CategoryController");
 		try {
 			category = categoryService.getCategoryById(id);
 			model.addAttribute("category", category);
@@ -113,7 +114,7 @@ public class CategoryController {
 
 	@RequestMapping(value = "/editCategory", method = RequestMethod.POST)
 	public String editCategoryPost(@ModelAttribute("category") Category category, BindingResult result, Model model) {
-		logger.info("Starting editCategory post method");
+		logger.info("Starting editCategory(POST) method in categoryController");
 		if (result.hasErrors()) {
 			return "error";
 		}

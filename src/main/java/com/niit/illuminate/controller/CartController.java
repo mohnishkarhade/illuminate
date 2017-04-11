@@ -49,6 +49,7 @@ public class CartController {
 
 	@RequestMapping("/all")
 	public String getCart() {
+		logger.info("Starting getCart method in CartController");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		String loggedInUsername = username;
@@ -60,7 +61,7 @@ public class CartController {
 
 	@RequestMapping(value = "/addToCart/{id}", method = RequestMethod.POST)
 	public String addToCart(@PathVariable("id") int id, RedirectAttributes redirect, Model model) {
-		logger.info("Starting addtocart method");
+		logger.info("Starting addtocart method in CartController");
 		try {
 			Cart cart = new Cart();
 			Product product = productService.getProductByID(id);
@@ -124,7 +125,7 @@ public class CartController {
 
 	@RequestMapping("/deleteItem/{id}")
 	public String deleteCartItem(@PathVariable("id") int id, Model model, RedirectAttributes redirect) {
-		logger.info("Starting deleteCartItem method");
+		logger.info("Starting deleteCartItem method in CartController");
 		try {
 			Cart cart = cartService.getCartById(id);
 
@@ -153,7 +154,7 @@ public class CartController {
 
 	@RequestMapping("/clearCart")
 	public String clearCart(RedirectAttributes redirect, Model model) {
-		logger.info("Starting clearCart method");
+		logger.info("Starting clearCart method in CartController");
 		try {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String username = auth.getName();
