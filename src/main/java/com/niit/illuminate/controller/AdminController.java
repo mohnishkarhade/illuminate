@@ -122,10 +122,10 @@ public class AdminController {
 			int checkS = customerService.changeStatus(id);
 			if (checkS > 0) {
 				redirect.addFlashAttribute("success", "Customer status changed successflly.");
-				return "redirect:/customer";
+				return "redirect:/admin/customer";
 			} else {
 				redirect.addFlashAttribute("error", "Failed to change Customer status.");
-				return "redirect:/customer";
+				return "redirect:/admin/customer";
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -133,6 +133,14 @@ public class AdminController {
 			model.addAttribute("catchError", "Server is not responding please try again letter.\n" + e);
 			return "error";
 		}
+	}
+
+	@RequestMapping("/orders")
+	public String viewOrders(Model model) {
+		logger.info("Starting (manage) orders method of AdminController");
+		model.addAttribute("orderList", customerOrderService.getAllOrders());
+
+		return "admin/orders";
 	}
 
 }

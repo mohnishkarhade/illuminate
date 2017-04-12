@@ -26,13 +26,18 @@
 							<strong>Error!</strong> ${usernameError }
 						</div>
 					</c:if>
+					<c:if test="${not empty mobileError}">
+						<div class="alert alert-danger" role="alert">
+							<strong>Error!</strong> ${mobileError }
+						</div>
+					</c:if>
 					<c:if test="${not empty error}">
 						<div class="alert alert-danger" role="alert">
 							<strong>Error!</strong> ${error }
 						</div>
 					</c:if>
 
-					<form:form action="${addUser }" method="post" commandName="users" id="registrationForm">
+					<form:form action="${addUser }" method="post" commandName="customer" id="registrationForm">
 						<div class="form-group">
 							<form:label path="name">Name</form:label>
 							<form:input path="name" class="form-control"></form:input>

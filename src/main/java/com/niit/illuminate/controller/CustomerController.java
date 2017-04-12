@@ -97,7 +97,7 @@ public class CustomerController {
 			Cart cart = new Cart();
 			session.setAttribute("cartList", cartService.getCartList(username));
 			session.setAttribute("numberProducts", cartService.getNumberOfProducts(username));
-			
+
 			return "redirect:/";
 
 		}
@@ -107,7 +107,7 @@ public class CustomerController {
 	public String loginError(Model model) {
 		logger.info("Starting of the method loginError");
 		model.addAttribute("error", "Invalid Credentials.  Please try again.");
-		
+
 		return "login";
 	}
 
@@ -115,7 +115,7 @@ public class CustomerController {
 	public String accessDenied(Model model) {
 		logger.debug("Starting of the method accessDenied");
 		model.addAttribute("error", "You are not authorized to access this page");
-		
+
 		return "error";
 
 	}
@@ -133,7 +133,7 @@ public class CustomerController {
 		}
 
 		redirect.addFlashAttribute("success", "You are successfully logged out.");
-		
+
 		return "redirect:/";
 	}
 
@@ -205,5 +205,24 @@ public class CustomerController {
 			return "error";
 		}
 
+	}
+
+	@RequestMapping("/customer/profile")
+	public String showProfile(Model model) {
+		logger.info("Starting showProfile method of CustomerController");
+		try {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			String username = auth.getName();
+
+			Customer customer = customerService.getUserByUserName(username);
+			model.addAttribute("customer", customer);
+
+			return "admin/customerprofile";
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
 	}
 }

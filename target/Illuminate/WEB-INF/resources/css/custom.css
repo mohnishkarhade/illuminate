@@ -1,21 +1,71 @@
-
 .form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
 }
+
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }
-.form-signin{
-	min-width:300px;
+
+.form-signin {
+	min-width: 300px;
 }
-.space{
-	height:50px;
+
+.space {
+	height: 50px;
 }
-.error{
-	color: #f00 !important;
-	border-color: #f00 !important;
+
+.error {
+	color: #f00;
+	border-color: #f03 !important;
+}
+
+label.error {
+	font-size: 12px;
+}
+
+.heading-one {
+	padding: 5px 5px 10px;
+	border-left: solid 5px #025AA5;
+	color: #025AA5;
+}
+
+#notification {
+	margin-left: 0;
+	position: fixed;
+	z-index: 9;
+	left: 35%;
+	top: 40px;
+	padding-bottom: 0;
+	padding-top: 20px;
+}
+
+.thumbnail img {
+	width: 100%;
+	height: 250px;
+	object-fit: cover;
+	border-bottom: solid 1px #efefef;
+	padding-bottom: 5px;
+}
+
+.caption {
+	overflow: hidden;
+	padding-top: 8px;
+}
+
+.caption h4 {
+	white-space: nowrap;
+}
+
+.thumbnail {
+	padding: 10px;
+	border: solid 1px #efefef;
+}
+
+.thumbnail .caption-full {
+	padding: 9px;
+	color: #333;
 }

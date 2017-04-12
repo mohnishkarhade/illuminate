@@ -39,14 +39,19 @@
 						<c:if test="${!customer.users.enabled }">
 							<h4 class="text-danger">Disabled</h4>
 						</c:if>
-						<form
-							action="<c:url value="/admin/changeStatus/${customer.id}?${_csrf.parameterName}=${_csrf.token}" />"
-							method="POST">
-							<input type="submit" class="btn btn-outline-primary"
-								value="Change Status" />
-						</form>
-						<a href="<c:url value="/customer/editCustomer/${customer.id }" />"
-							class="btn btn-secondary pull-right">Edit</a>
+						<c:if test="${isAdmin}">
+							<form
+								action="<c:url value="/admin/changeStatus/${customer.id}?${_csrf.parameterName}=${_csrf.token}" />"
+								method="POST">
+								<input type="submit" class="btn btn-outline-primary"
+									value="Change Status" />
+							</form>
+						</c:if>
+						<c:if test="${!isAdmin }">
+							<a
+								href="<c:url value="/customer/editCustomer/${customer.id }" />"
+								class="btn btn-secondary pull-right">Edit</a>
+						</c:if>
 					</div>
 				</div>
 			</div>
