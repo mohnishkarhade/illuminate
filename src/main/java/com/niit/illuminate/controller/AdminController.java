@@ -12,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.niit.illuminatebe.model.Category;
+import com.niit.illuminatebe.model.CustomerOrder;
 import com.niit.illuminatebe.model.Product;
 import com.niit.illuminatebe.model.Supplier;
 import com.niit.illuminatebe.model.Users;
@@ -141,6 +143,30 @@ public class AdminController {
 		model.addAttribute("orderList", customerOrderService.getAllOrders());
 
 		return "admin/orders";
+	}
+
+	@RequestMapping(value = "/changeOrderStatus/{id}", method = RequestMethod.POST)
+	public String changeOrderStatus(@PathVariable("id") int id, @RequestParam("status") String status,
+			RedirectAttributes redirect, Model model) {
+		logger.info("Starting changeorderStatus method of AdminController");
+		try {
+
+			CustomerOrder customerOrder = customerOrderService.getCustomerOrderById(id);
+			int flag = customerOrderService.changeOrderStatus(id, status);
+			if (flag > 0) {
+				redirect.addFlashAttribute("success", "Order status changed successfully to " + status);
+				return "redirect:/admin/orders";
+			} else {
+				redirect.addFlashAttribute("error", "Failed to change order status");
+				return "redirect:/admin/orders";
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.\n" + e);
+			return "error";
+		}
 	}
 
 }
