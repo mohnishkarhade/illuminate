@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -215,9 +216,51 @@ public class CustomerController {
 			String username = auth.getName();
 
 			Customer customer = customerService.getUserByUserName(username);
-			model.addAttribute("customer", customer);
+			session.setAttribute("customer", customer);
 
 			return "admin/customerprofile";
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
+	}
+
+	@RequestMapping(value = "/customer/editCustomer/{id}", method = RequestMethod.GET)
+	public String editProfile(@PathVariable("id") int id, Model model) {
+		logger.info("Starting editProfile(GET) method of CustomerController");
+		try {
+			Customer customer = customerService.getUserById(id);
+			model.addAttribute("editCustomer", customer);
+			return "editprofile";
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Exception occured " + e);
+			model.addAttribute("catchError", "Server is not responding please try again letter.");
+			return "error";
+		}
+	}
+
+	@RequestMapping(value = "/customer/editCustomer", method = RequestMethod.POST)
+	public String editProfile(@ModelAttribute("editCustomer") Customer customer, BindingResult result, Model model) {
+		logger.info("Starting editProfile(POST) method of CustomerController");
+		if (result.hasErrors()) {
+			return "error";
+		}
+		try {
+
+			boolean flag = customerService.update(customer);
+			if (flag) {
+				model.addAttribute("success", "Your Profile is updated successfully");
+				logger.info("Your Profile is updated successfully");
+				return "admin/customerprofile";
+			} else {
+				model.addAttribute("error", "Failed to update profile");
+				logger.info("Failed to update profile");
+				return "admin/customerprofile";
+			}
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			logger.error("Exception occured " + e);

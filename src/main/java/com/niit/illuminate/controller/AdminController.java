@@ -66,6 +66,7 @@ public class AdminController {
 		session.setAttribute("categories", categoryService.getAllCategories().size());
 		session.setAttribute("suppliers", supplierService.getAllSuppliers().size());
 		session.setAttribute("customers", customerService.getAllCustomers().size());
+		session.setAttribute("orders", customerOrderService.getAllOrders().size());
 
 		return "admin/dashboard";
 	}

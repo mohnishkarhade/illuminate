@@ -47,6 +47,16 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-sm-4 text-center">
+			<div class="card card-inverse card-success">
+				<div class="card-block">
+					<h4 class="card-title">Orders</h4>
+					<h1>${orders }</h1>
+					<a href="<c:url value="/admin/orders" />" class="card-link">View
+						All</a>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <%@include file="/WEB-INF/views/template/footer.jsp"%>
