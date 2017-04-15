@@ -69,3 +69,11 @@ label.error {
 	padding: 9px;
 	color: #333;
 }
+
+.well {
+	background-color: rgba(239, 239, 239, 0.24);
+	padding: 15px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.22);
+	border: solid 1px #f6f6f6;
+}

@@ -16,36 +16,42 @@
 			<div class="text-center">
 				<h1>Receipt</h1>
 			</div>
+			<hr>
 			<div class="row">
-				<div class="col-xs-6 col-sm-6 col-md-6">
-					<address>
-						<strong>Shipping Address</strong><br>
-						${order.customer.shippingAddress.streetName} <br>
-						${order.customer.shippingAddress.apartNo} <br>
-						${order.customer.shippingAddress.city},
-						${order.customer.shippingAddress.state} <br>
-						${order.customer.shippingAddress.country},
-						${corder.ustomer.shippingAddress.zipcode} <br>
-					</address>
+				<div class="col-xs-8 col-sm-8 col-md-8">
+					<b>Name: </b>${loggedInName }
+					<br>
+					<b>Email: </b> ${order.customer.email }
+					<br>
+					<b>Mobile No: </b> ${order.customer.mobileno }
 				</div>
-				<div class="col-xs-6 col-sm-6 col-md-6 text-right">
+				<div class="col-xs-4 col-sm-4 col-md-4 ">
 					<p>
-						Shipping Date:
+						<b>Shipping Date:</b>
 						<fmt:formatDate type="date" value="${now}" />
 					</p>
 				</div>
 			</div>
-
+<hr>
 			<div class="row">
 				<div class="col-xs-6 col-sm-6 col-md-6">
 					<address>
 						<strong>Billing Address</strong><br>
-						${order.customer.billingAddress.streetName} <br>
-						${order.customer.billingAddress.apartNo} <br>
+						${order.customer.billingAddress.apartNo}, ${order.customer.billingAddress.streetName} <br>						
 						${order.customer.billingAddress.city},
 						${order.customer.billingAddress.state} <br>
 						${order.customer.billingAddress.country},
 						${order.customer.billingAddress.zipcode} <br>
+					</address>
+				</div>
+				<div class="col-xs-6 col-sm-6">
+					<address>
+						<strong>Shipping Address</strong><br>
+						${order.customer.shippingAddress.apartNo}, ${order.customer.shippingAddress.streetName} <br>						
+						${order.customer.shippingAddress.city},
+						${order.customer.shippingAddress.state} <br>
+						${order.customer.shippingAddress.country},
+						${order.customer.shippingAddress.zipcode} <br>
 					</address>
 				</div>
 			</div>
@@ -67,8 +73,8 @@
 							</tr>
 						</c:forEach>
 
-						<tr>							
-							<td class="text-right" >
+						<tr>
+							<td class="text-right">
 								<h4>
 									<strong>Grand Total: </strong>
 								</h4>
