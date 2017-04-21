@@ -5,7 +5,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <div class="space"></div>
 <div class="container">
-	<h2 class="heading-one">All Product</h2>
+	<h2 class="heading-one">Products</h2>
 
 	<c:if test="${empty productList }">
 		<div class="alert alert-warning">No data available in database</div>
@@ -26,7 +26,8 @@
 							class="img-responsive">
 						<div class="caption">
 							<h4>
-								<a href="#">${product.name}</a>
+								<a
+									href="<c:url value="/product/productDetail/${product.id }" />">${product.name}</a>
 							</h4>
 
 							<p>

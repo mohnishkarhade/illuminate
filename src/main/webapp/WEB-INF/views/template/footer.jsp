@@ -1,4 +1,11 @@
 <div class="space"></div>
+<div class="space"></div>
+<div class="space"></div>
+<footer class="footer">
+	<div class="container">
+		<span class="text-muted">Copyrights 2016. Illuminate LLP.</span>
+	</div>
+</footer>
 <!-- jQuery first, then Tether, then Bootstrap JS. -->
 <script src="<spring:url value="/resources/js/jquery-3.1.1.min.js" />"></script>
 <script

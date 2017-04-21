@@ -47,11 +47,17 @@ public class CategoryController {
 		try {
 			logger.info("Saving category...");
 
-			for (int i = 0; i < categoryList.size(); i++) {
-				if (category.getName().equalsIgnoreCase(categoryList.get(i).getName())) {
-					model.addAttribute("duplicateCategory", "Category is already exists.");
-					return "admin/addcategory";
-				}
+//			for (int i = 0; i < categoryList.size(); i++) {
+//				if (category.getName().equalsIgnoreCase(categoryList.get(i).getName())) {
+//					model.addAttribute("duplicateCategory", "Category is already exists.");
+//					return "admin/addcategory";
+//				}
+//			}
+
+			Category ifExist = categoryService.getCategoryById(category.getId());
+			if (ifExist != null) {
+				model.addAttribute("duplicateCategory", "Category is already exists.");
+				return "admin/addcategory";
 			}
 
 			category.setStatus("Running");

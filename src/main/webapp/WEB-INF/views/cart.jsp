@@ -4,15 +4,15 @@
 <div class="space"></div>
 <div class="container">
 	<h2 class="heading-one">Cart</h2>
+	<c:if test="${not empty success }">
+		<div class="alert alert-success">${success }</div>
+	</c:if>
 	<c:if test="${empty cartList }">
 		<div class="alert alert-warning">You have not added any product
 			into cart.</div>
 	</c:if>
 	<c:if test="${not empty error }">
 		<div class="alert alert-danger">${error }</div>
-	</c:if>
-	<c:if test="${not empty success }">
-		<div class="alert alert-success">${success }</div>
 	</c:if>
 	<c:if test="${not empty cartList}">
 		<table class="table table-bordered">

@@ -29,8 +29,8 @@ label.error {
 
 .heading-one {
 	padding: 5px 5px 10px;
-	border-left: solid 5px #025AA5;
 	color: #025AA5;
+	border: solid 1px #025AA5;
 }
 
 #notification {
@@ -76,4 +76,14 @@ label.error {
 	border-radius: 5px;
 	box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.22);
 	border: solid 1px #f6f6f6;
+}
+
+.footer {
+	position:fixed;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	line-height: 60px; /* Vertically center the text there */
+	background-color: #f5f5f5;
 }

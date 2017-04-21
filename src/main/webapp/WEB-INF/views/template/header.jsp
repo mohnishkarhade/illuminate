@@ -54,14 +54,17 @@
 								</c:forEach>
 							</div></li>
 					</c:if>
+				</ul>
+				<ul class="navbar-nav navbar-right">
 					<c:if test="${loggedInUser }">
-						<li class="nav-item"><a class="nav-link"
-							href="<spring:url value="/customer/profile" />"> ${loggedInName } </a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="<spring:url value="/logout" />">Logout</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="<spring:url value="/myCart/all" />">Cart <span
 								class="badge badge-pill badge-primary">${numberProducts }</span></a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<spring:url value="/customer/profile" />">
+								${loggedInName } </a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<spring:url value="/logout" />">Logout</a></li>
 					</c:if>
 					<c:if test="${!loggedInUser }">
 						<li class="nav-item"><a class="nav-link"
@@ -70,15 +73,6 @@
 							href="<spring:url value="/register" />">Register</a></li>
 					</c:if>
 				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<div class="input-group">
-						<input type="text" class="form-control"
-							placeholder="Search for..."> <span
-							class="input-group-btn">
-							<button class="btn btn-primary" type="submit">Go!</button>
-						</span>
-					</div>
-				</form>
 			</div>
 		</div>
 	</nav>

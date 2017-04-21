@@ -4,7 +4,9 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<spring:url value="/customer/editCustomer?${_csrf.parameterName}=${_csrf.token}" var="editProfile"></spring:url>
+<spring:url
+	value="/customer/editCustomer?${_csrf.parameterName}=${_csrf.token}"
+	var="editProfile"></spring:url>
 
 <div class="space"></div>
 <div class="container">
@@ -54,13 +56,15 @@
 						</div>
 						<div class="form-group">
 							<form:label path="username">Username</form:label>
-							<form:input type="text" path="username" class="form-control" disabled="true"></form:input>
+							<form:input type="text" path="username" class="form-control"
+								disabled="true"></form:input>
 						</div>
 						<div class="form-group">
 							<form:label path="password">Password</form:label>
 							<form:input type="password" path="password" class="form-control"></form:input>
 						</div>
 						<p>Billing Address</p>
+						<%-- <form:hidden path="billingAddress.id" /> --%>
 						<div class="form-group">
 							<form:label path="billingAddress.streetName">Street Name</form:label>
 							<form:input type="text" path="billingAddress.streetName"
@@ -94,6 +98,7 @@
 
 						<p>Shipping Address</p>
 						<div class="form-group">
+							<%-- <form:hidden path="shippingAddress.id" /> --%>
 							<form:label path="shippingAddress.streetName">Street Name</form:label>
 							<form:input type="text" path="shippingAddress.streetName"
 								class="form-control"></form:input>
